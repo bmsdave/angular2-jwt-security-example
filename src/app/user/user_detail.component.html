@@ -1,0 +1,31 @@
+<div class="user-detail view indent">
+  <div class="container">
+     <h3><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Orders</h3>
+
+    <br />
+    <!-- <table class="table table-striped table-hover" *ngFor="#user of filteredUser">
+        <tr *ngFor="#orderItem of user.userItems">
+            <li>{{orderItem.productName}}</li>
+            <li>${{orderItem.itemCost}}</li>
+        </tr>
+    </table> -->
+
+    {{filteredUser}}
+    {{filteredUsers}}
+
+        <ul>
+            <li><img src="images/{{ filteredUser.gender | lowercase }}.png"
+                     class="card-image" alt="User Image" /></li>
+            <li><a [routerLink]="['UserDetail',{id:filteredUser.id}]">{{ filteredUser.firstName | capitalize }}</a></li>
+            <li>{{ filteredUser.lastName | capitalize }}</li>
+            <li>{{ filteredUser.address }}</li>
+            <li>{{ filteredUser.city | trim }}</li>
+            <li>{{ filteredUser.state.name }}</li>
+            <li>{{ filteredUser.orderTotal | currency:'USD':true }}</li>
+        </ul>
+
+    <br />
+
+    <a [routerLink]="['UserDetail',{id:user.id}]" >View all Users</a>
+  </div>
+</div>
