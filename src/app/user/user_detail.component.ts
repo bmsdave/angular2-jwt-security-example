@@ -16,7 +16,7 @@ export class UserDetailComponent {
 
    title: string = 'User Detail';
    filteredUsers: any[] = [];
-   filteredUser: any;
+   filteredUser: any = {id:1};
 
     constructor(private dataService: DataService, private _routeParams: RouteParams) {
 

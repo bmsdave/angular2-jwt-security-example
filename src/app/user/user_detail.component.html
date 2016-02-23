@@ -3,29 +3,41 @@
      <h3><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Orders</h3>
 
     <br />
-    <!-- <table class="table table-striped table-hover" *ngFor="#user of filteredUser">
-        <tr *ngFor="#orderItem of user.userItems">
-            <li>{{orderItem.productName}}</li>
-            <li>${{orderItem.itemCost}}</li>
-        </tr>
-    </table> -->
 
-    {{filteredUser}}
-    {{filteredUsers}}
 
-        <ul>
-            <li><img src="images/{{ filteredUser.gender | lowercase }}.png"
-                     class="card-image" alt="User Image" /></li>
-            <li><a [routerLink]="['UserDetail',{id:filteredUser.id}]">{{ filteredUser.firstName | capitalize }}</a></li>
-            <li>{{ filteredUser.lastName | capitalize }}</li>
-            <li>{{ filteredUser.address }}</li>
-            <li>{{ filteredUser.city | trim }}</li>
-            <li>{{ filteredUser.state.name }}</li>
-            <li>{{ filteredUser.orderTotal | currency:'USD':true }}</li>
-        </ul>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th sort-by="firstName" (sorted)="sort($event)">First Name</th>
+                                    <th sort-by="lastName" (sorted)="sort($event)">Last Name</th>
+                                    <th sort-by="address" (sorted)="sort($event)">Address</th>
+                                    <th sort-by="city" (sorted)="sort($event)">City</th>
+                                    <th sort-by="state.name" (sorted)="sort($event)">State</th>
+                                    <!-- Or you can do this directly rather than using sort-by directive -->
+                                    <th (click)="sort('orderTotal')">Order Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="#user of filteredUsers">
+                                    <td><img src="images/{{ user.gender | lowercase }}.png"
+                                             class="card-image" alt="Customer Image" /></td>
+                                    <td><a [routerLink]="['UserDetail',{id:user.id}]">{{ user.firstName | capitalize }}</a></td>
+                                    <td>{{ user.lastName | capitalize }}</td>
+                                    <td>{{ user.address }}</td>
+                                    <td>{{ user.city | trim }}</td>
+                                    <td>{{ user.state.name }}</td>
+                                    <td>{{ user.orderTotal | currency:'USD':true }}</td>
+                                </tr>
+                                <tr [hidden]="filteredUsers.length">
+                                    <td>&nbsp;</td>
+                                    <td colspan="6">No Records Found</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
     <br />
 
-    <a [routerLink]="['UserDetail',{id:user.id}]" >View all Users</a>
+    <a [routerLink]="['UserList']" >View all Users</a>
   </div>
 </div>
