@@ -8,7 +8,7 @@ import { DataService } from '../shared/services/data.service';
 @Component({
   selector: 'user-detail',
   providers: [DataService],
-  templateUrl: 'app/user/user_detail.component.html',
+  templateUrl: './views/user/user_detail.component.html',
   directives: [CORE_DIRECTIVES, RouterLink],
   pipes: [CapitalizePipe, TrimPipe]
 })

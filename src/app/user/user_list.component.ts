@@ -12,7 +12,7 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
 @Component({
   selector: 'user-list',
   providers: [DataService],
-  templateUrl: 'app/user/user_list.component.html',
+  templateUrl: './views/user/user_list.component.html',
   directives: [CORE_DIRECTIVES, RouterLink, FilterTextboxComponent, SortByDirective],
   pipes: [CapitalizePipe, TrimPipe]
 })

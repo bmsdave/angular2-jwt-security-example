@@ -6,8 +6,8 @@ import { FORM_DIRECTIVES } from 'angular2/common';
   template: `
     <form>
          Filter:
-         <input type="text" 
-                [(ngModel)]="model.filter" 
+         <input type="text"
+                [(ngModel)]="model.filter"
                 (keyup)="filterChanged($event)"  />
     </form>
   `,
@@ -15,9 +15,9 @@ import { FORM_DIRECTIVES } from 'angular2/common';
 })
 export class FilterTextboxComponent {
 
-  
+
     model: { filter: string } = { filter: null };
-    
+
     @Output()
     changed: EventEmitter<string> = new EventEmitter();
 

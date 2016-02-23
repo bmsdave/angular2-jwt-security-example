@@ -1,0 +1,15 @@
+<header>
+  <div class="home jumbotron centered">
+    <ul class="hr">
+      <li><a [routerLink]="['Login']">Login</a></li>
+      <li><a [routerLink]="['Signup']">Signup</a></li>
+      <li><a [routerLink]="['Home']">Home</a></li>
+
+      <li><a [routerLink]="['UserList']">UserList</a></li>
+      <li><a [routerLink]="['UserDetail',{id:1}]">UserDetail with id = 1</a></li>
+    </ul>
+  </div>
+</header>
+<main class="container">
+  <router-outlet></router-outlet>
+</main>

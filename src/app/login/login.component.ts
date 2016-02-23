@@ -9,7 +9,7 @@ import { contentHeaders } from '../common/headers';
 
 @Component({
   selector: 'login',
-  templateUrl: './app/login/login.component.html'
+  templateUrl: './views/login/login.component.html'
 })
 // @View({
 //   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
@@ -23,7 +23,7 @@ export class LoginComponent {
   login(event, username, password) {
     event.preventDefault();
     let body = JSON.stringify({ username, password });
-    this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
+    this.http.post('http://kl10ch.app-showcase.corelab.pro/api/api-token-auth/', body, { headers: contentHeaders })
       .subscribe(
         response => {
           localStorage.setItem('jwt', response.json().id_token);

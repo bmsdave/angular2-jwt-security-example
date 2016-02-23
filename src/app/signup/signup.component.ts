@@ -9,7 +9,7 @@ import { contentHeaders } from '../common/headers';
 
 @Component({
   selector: 'signup',
-  templateUrl: './app/signup/signup.component.html'
+  templateUrl: './views/signup/signup.component.html'
 })
 // @View({
 //   directives: [ RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
