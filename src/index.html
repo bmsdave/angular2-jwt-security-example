@@ -1,39 +1,34 @@
-<!--
-   kronos-front-end
-   @Vadim Gorbachev
-   bmsdave@gmail.com
--->
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
-    <base href="/src/"></base>
-    <title>kronos</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="kronos">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="styles/styles.css" rel="stylesheet" />
+
+  <title><%= webpackConfig.metadata.title %></title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= webpackConfig.metadata.title %>">
+
+  <!-- use http://www.favicon-generator.org/ to replace files in public/icon-->
+  <link rel="manifest" href="/assets/manifest.json">
+  <meta name="msapplication-TileColor" content="#00bcd4">
+  <meta name="msapplication-TileImage" content="/assets/icon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#00bcd4">
+  <!-- end favicon -->
+
+  <!-- base url -->
+  <base href="<%= webpackConfig.metadata.baseUrl %>">
+
+  <link href="/assets/css/styles.css" rel="stylesheet" />
 </head>
+
 <body>
-        <app-container>
-            Loading...
-        </app-container>
-        <br /><br />
 
-   <!-- IE required polyfills (order matters) -->
-   <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
-   <script src="/node_modules/systemjs/dist/system-polyfills.js"></script>
+  <app-container>
+    Loading...
+  </app-container>
 
-   <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
-   <script src="/node_modules/systemjs/dist/system.src.js"></script>
-   <script src="/node_modules/rxjs/bundles/Rx.js"></script>
-   <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
-   <script src="/node_modules/angular2/bundles/router.dev.js"></script>
-
-    <script>
-
+<!--   <script>
         System.config({
             baseURL: '/node_modules',
             defaultJSExtensions: true,
@@ -49,7 +44,12 @@
 
         System.import('./app/main')
             .then(null, console.error.bind(console));
+  </script> -->
 
-    </script>
+  <% if (webpackConfig.metadata.ENV === 'development') { %>
+  <!-- Webpack Dev Server reload -->
+  <script src="http://<%= webpackConfig.metadata.host %>:<%= webpackConfig.metadata.port %>/webpack-dev-server.js"></script>
+  <% } %>
+
 </body>
 </html>

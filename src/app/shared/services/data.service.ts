@@ -10,24 +10,24 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class DataService {
 
-    baseUrl: string = '/src';
+    baseUrl: string = '/';
 
     constructor(private http: Http) { }
 
     getCustomers() {
-        return this.http.get(this.baseUrl + '/customers.json')
+        return this.http.get(this.baseUrl + 'assets/customers.json')
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
     getUserList() {
-        return this.http.get(this.baseUrl + '/users.json')
+        return this.http.get(this.baseUrl + 'assets/json/users.json')
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
     getUserDetail() {
-        return this.http.get(this.baseUrl + '/users.json')
+        return this.http.get(this.baseUrl + 'assets/json/users.json')
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

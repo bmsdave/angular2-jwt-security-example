@@ -4,12 +4,12 @@ import { Directive, Output, ElementRef, EventEmitter } from 'angular2/core';
   selector: '[sort-by]'
 })
 export class SortByDirective {
-	
-	sortProperty: string;
-  
+
+  sortProperty: string;
+
   @Output()
-	sorted: EventEmitter<string> = new EventEmitter();
-	
+  sorted: EventEmitter<string> = new EventEmitter();
+
     constructor(el: ElementRef) {
       this.sortProperty = el.nativeElement.getAttribute('sort-by');
       el.nativeElement.addEventListener('click', (event: any) => this.elementClicked(event));

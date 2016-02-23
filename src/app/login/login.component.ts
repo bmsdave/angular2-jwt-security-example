@@ -9,7 +9,23 @@ import { contentHeaders } from '../common/headers';
 
 @Component({
   selector: 'login',
-  templateUrl: './views/login/login.component.html'
+  template: `
+    <div class="login jumbotron center-block">
+      <h1>Login</h1>
+      <form role="form" (submit)="login($event, username.value, password.value)">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" #username class="form-control" id="username" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" #password class="form-control" id="password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+        <a href="/signup">Click here to Signup</a>
+    </form>
+    </div>
+  `
 })
 // @View({
 //   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
@@ -25,14 +41,14 @@ export class LoginComponent {
     let body = JSON.stringify({ username, password });
     this.http.post('http://kl10ch.app-showcase.corelab.pro/api/api-token-auth/', body, { headers: contentHeaders })
       .subscribe(
-        response => {
-          localStorage.setItem('jwt', response.json().id_token);
-          this.router.parent.navigateByUrl('/home');
-        },
-        error => {
-          alert(error.text());
-          console.log(error.text());
-        }
+      response => {
+        localStorage.setItem('jwt', response.json().id_token);
+        this.router.parent.navigateByUrl('/home');
+      },
+      error => {
+        alert(error.text());
+        console.log(error.text());
+      }
       );
   }
 
