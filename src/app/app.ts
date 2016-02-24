@@ -25,16 +25,15 @@ import { SignupComponent } from './signup/signup.component';
   pipes: [],
   template: `
     <header>
-      <div class="home jumbotron centered">
+      <md-toolbar class="md-theme-light">
         <ul class="hr">
-          <button *ngIf="!loggedIn()" (click)="login()">Login</button>
-          <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
-          // <li><a [routerLink]="['Login']">Login</a></li>
-          // <li><a [routerLink]="['Signup']">Signup</a></li>
-          <li><a [routerLink]="['Home']">Home</a></li>
-          <li><a [routerLink]="['UserList']">UserList</a></li>
+          <md-button md-no-ink class="md-raised md-primary" *ngIf="!loggedIn()" [routerLink]="['Login']">Login</md-button>
+          <md-button md-no-ink class="md-primary md-primary" *ngIf="loggedIn()" (click)="logout()">Logout</md-button>
+          <md-button md-no-ink class="md-primary"><a [routerLink]="['Signup']">Signup</a></md-button>
+          <md-button md-no-ink class="md-primary"><a [routerLink]="['Home']">Home</a></md-button>
+          <md-button md-no-ink class="md-primary"><a [routerLink]="['UserList']">UserList</a></md-button>
         </ul>
-      </div>
+      </md-toolbar>
     </header>
     <main class="container">
       <router-outlet></router-outlet>
@@ -54,13 +53,13 @@ import { SignupComponent } from './signup/signup.component';
 ])
 export class App {
   angularclassLogo = '';
-  name = 'kronos';
+  name = 'KRONOS ERP';
   url = '';
 
   constructor() { }
 
   loggedIn() {
-    return true;
+    return !!localStorage.getItem('jwt');
   }
 
   logout() {

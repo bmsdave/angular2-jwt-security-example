@@ -1,5 +1,6 @@
 import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 //Grab everything with import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
@@ -12,7 +13,7 @@ export class DataService {
 
     baseUrl: string = '/';
 
-    constructor(private http: Http) { }
+    constructor(public http: Http) { }
 
     getCustomers() {
         return this.http.get(this.baseUrl + 'assets/customers.json')

@@ -6,7 +6,7 @@ import {bootstrap, ELEMENT_PROBE_PROVIDERS} from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, PathLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS, BaseRequestOptions, RequestOptions, Http, XHRBackend} from 'angular2/http';
 import {FORM_PROVIDERS} from 'angular2/common';
-import { AuthConfig, AuthHttp } from 'angular2-jwt';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {DefaultRequestOptions} from './app/DefaultRequestOptions';
 
 @Injectable()
@@ -84,7 +84,9 @@ if (module.hot) {
       ...HTTP_PROVIDERS,
       ...ROUTER_PROVIDERS,
       provide(LocationStrategy, { useClass: HashLocationStrategy }),
-      provide(RequestOptions, { useClass: ExRequestOptions })
+      provide(RequestOptions, { useClass: ExRequestOptions }),
+      provide(AuthHttp, {useFactory: (http) => {return new AuthHttp(new AuthConfig(), http);}, deps: [Http]}),
+      AuthHttp
     ])
     .catch(err => console.error(err));
 

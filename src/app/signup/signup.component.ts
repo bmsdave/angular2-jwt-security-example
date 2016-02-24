@@ -25,18 +25,18 @@ import { contentHeaders } from '../common/headers';
         <label for="last_name">Last Name</label>
         <input type="text" #last_name class="form-control" id="last_name" placeholder="Username">
       </div>
-      // <div class="form-group">
-      //   <label for="emails">emails</label>
-      //   <input type="text" #emails class="form-control" id="emails" placeholder="emails">
-      // </div>
-      // <div class="form-group">
-      //   <label for="positions">positions</label>
-      //   <input type="text" #positions class="form-control" id="positions" placeholder="positions">
-      // </div>
-      // <div class="form-group">
-      //   <label for="phones">phones</label>
-      //   <input type="text" #phones class="form-control" id="phones" placeholder="phones">
-      // </div>
+      <div class="form-group">
+        <label for="emails">emails</label>
+        <input type="text" #emails class="form-control" id="emails" placeholder="emails">
+      </div>
+      <div class="form-group">
+        <label for="positions">positions</label>
+        <input type="text" #positions class="form-control" id="positions" placeholder="positions">
+      </div>
+      <div class="form-group">
+        <label for="phones">phones</label>
+        <input type="text" #phones class="form-control" id="phones" placeholder="phones">
+      </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" #password class="form-control" id="password" placeholder="Password">
