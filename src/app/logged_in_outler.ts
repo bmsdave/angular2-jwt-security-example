@@ -14,7 +14,8 @@ export class LoggedInOutlet extends RouterOutlet {
   }
 
   canActivate(instruction) {
-    var url = this._router.lastNavigationAttempt;
+    // var url = this._router.lastNavigationAttempt;
+    var url = '';
     // If the user is going to a URL that requires authentication and is not logged in (meaning we don't have the JWT saved in localStorage), we redirect the user to the login page.
     console.log(url);
     console.log(localStorage.getItem('jwt'));
