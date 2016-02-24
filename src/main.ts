@@ -1,12 +1,29 @@
 /*
  * Providers provided by Angular
  */
-import {bind, provide, enableProdMode} from 'angular2/core';
+import {bind, provide, enableProdMode, Injectable} from 'angular2/core';
 import {bootstrap, ELEMENT_PROBE_PROVIDERS} from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, PathLocationStrategy} from 'angular2/router';
-import {HTTP_PROVIDERS} from 'angular2/http';
+import {HTTP_PROVIDERS, BaseRequestOptions, RequestOptions, Http, XHRBackend} from 'angular2/http';
 import {FORM_PROVIDERS} from 'angular2/common';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
+import {DefaultRequestOptions} from './app/DefaultRequestOptions';
+
+@Injectable()
+export class ExRequestOptions extends BaseRequestOptions {
+  constructor() {
+    super();
+    this.headers.append('X-CSRFToken', this.getCookie('csrftoken'));
+  }
+
+  getCookie(name) {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length == 2)
+      return parts.pop().split(";").shift();
+  }
+}
+
 
 const ENV_PROVIDERS = [];
 
@@ -32,7 +49,15 @@ document.addEventListener('DOMContentLoaded', function main() {
     ...ENV_PROVIDERS,
     ...HTTP_PROVIDERS,
     ...ROUTER_PROVIDERS,
-    provide(LocationStrategy, { useClass: PathLocationStrategy })
+    provide(LocationStrategy, { useClass: HashLocationStrategy }),
+    provide(RequestOptions, { useClass: ExRequestOptions })
+    // provide(Http, {
+    // useFactory:
+    // function(backend, defaultOptions) {
+    //   return new Http(backend, defaultOptions);
+    // },
+    // deps: [XHRBackend, RequestOptions]
+    // })
   ])
   .catch(err => console.error(err));
 
@@ -58,7 +83,8 @@ if (module.hot) {
       ...ENV_PROVIDERS,
       ...HTTP_PROVIDERS,
       ...ROUTER_PROVIDERS,
-      provide(LocationStrategy, { useClass: PathLocationStrategy })
+      provide(LocationStrategy, { useClass: HashLocationStrategy }),
+      provide(RequestOptions, { useClass: ExRequestOptions })
     ])
     .catch(err => console.error(err));
 

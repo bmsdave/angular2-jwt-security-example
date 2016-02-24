@@ -21,13 +21,13 @@ export class DataService {
     }
 
     getUserList() {
-        return this.http.get(this.baseUrl + 'assets/json/users.json')
+        return this.http.get(this.baseUrl + 'api/user/')
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
-    getUserDetail() {
-        return this.http.get(this.baseUrl + 'assets/json/users.json')
+    getUserDetail(username) {
+        return this.http.get(this.baseUrl + 'api/user/' + username)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

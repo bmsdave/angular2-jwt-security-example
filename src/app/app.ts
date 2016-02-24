@@ -23,31 +23,16 @@ import { SignupComponent } from './signup/signup.component';
   providers: [ ...FORM_PROVIDERS ],
   directives: [ ...ROUTER_DIRECTIVES, RouterActive ],
   pipes: [],
-  styles: [`
-    nav ul {
-      display: inline;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 60px;
-    }
-    nav li {
-      display: inline;
-    }
-    nav li.active {
-      background-color: lightgray;
-    }
-  `],
   template: `
     <header>
       <div class="home jumbotron centered">
         <ul class="hr">
-          <li><a [routerLink]="['Login']">Login</a></li>
-          <li><a [routerLink]="['Signup']">Signup</a></li>
+          <button *ngIf="!loggedIn()" (click)="login()">Login</button>
+          <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
+          // <li><a [routerLink]="['Login']">Login</a></li>
+          // <li><a [routerLink]="['Signup']">Signup</a></li>
           <li><a [routerLink]="['Home']">Home</a></li>
-
           <li><a [routerLink]="['UserList']">UserList</a></li>
-          <li><a [routerLink]="['UserDetail',{id:1}]">UserDetail with id = 1</a></li>
         </ul>
       </div>
     </header>
@@ -60,7 +45,7 @@ import { SignupComponent } from './signup/signup.component';
   { path: '/', component: Home, name: 'Index' },
   { path: '/home', component: Home, name: 'Home' },
   { path: '/users', name: 'UserList', component: UserListComponent },
-  { path: '/user/:id', name: 'UserDetail', component: UserDetailComponent },
+  { path: '/user/:username', name: 'UserDetail', component: UserDetailComponent },
   { path: '/login', component: LoginComponent, name: 'Login' },
   { path: '/signup', component: SignupComponent, name: 'Signup' },
   // Async load a component using Webpack's require with es6-promise-loader
@@ -68,12 +53,23 @@ import { SignupComponent } from './signup/signup.component';
   // { path: '/**', redirectTo: ['Index'] }
 ])
 export class App {
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
-  constructor() {
+  angularclassLogo = '';
+  name = 'kronos';
+  url = '';
 
+  constructor() { }
+
+  loggedIn() {
+    return true;
   }
+
+  logout() {
+    localStorage.removeItem('profile');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('csrftoken');
+    localStorage.removeItem('jwt');
+  }
+
 }
 
 /*

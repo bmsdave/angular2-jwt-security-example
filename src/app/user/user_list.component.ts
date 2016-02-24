@@ -48,13 +48,13 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
                     <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#user of filteredUsers">
                         <div class="card">
                             <div class="card-header">
-                                <a [routerLink]="['UserDetail',{id:user.id}]" class="white">{{user.firstName | capitalize }} {{ user.lastName | capitalize }}
+                                <a [routerLink]="['UserDetail',{username:user.username}]" class="white">{{user.username }}
                                     <i class="icon-edit icon-white editIcon"></i></a>
                             </div>
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="pull-left card-body-right">
-                                        <div class="card-body-content">{{user.city | trim }}, {{user.state.name}}</div>
+                                        <div class="card-body-content">{{user.person}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -70,23 +70,16 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th sort-by="firstName" (sorted)="sort($event)">First Name</th>
-                                        <th sort-by="lastName" (sorted)="sort($event)">Last Name</th>
-                                        <th sort-by="address" (sorted)="sort($event)">Address</th>
-                                        <th sort-by="city" (sorted)="sort($event)">City</th>
-                                        <th sort-by="state.name" (sorted)="sort($event)">State</th>
-                                        <!-- Or you can do this directly rather than using sort-by directive -->
-                                        <th (click)="sort('orderTotal')">Order Total</th>
+                                        <th sort-by="id" (sorted)="sort($event)">id</th>
+                                        <th sort-by="username" (sorted)="sort($event)">username</th>
+                                        <th sort-by="person" (sorted)="sort($event)">person</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="#user of filteredUsers">
-                                        <td><a [routerLink]="['UserDetail',{id:user.id}]">{{ user.firstName | capitalize }}</a></td>
-                                        <td>{{ user.lastName | capitalize }}</td>
-                                        <td>{{ user.address }}</td>
-                                        <td>{{ user.city | trim }}</td>
-                                        <td>{{ user.state.name }}</td>
-                                        <td>{{ user.orderTotal | currency:'USD':true }}</td>
+                                        <td><a [routerLink]="['UserDetail',{username:user.username}]">{{ user.id }}</a></td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.person }}</td>
                                     </tr>
                                     <tr [hidden]="filteredUsers.length">
                                         <td>&nbsp;</td>
@@ -135,7 +128,7 @@ export class UserListComponent {
   filterChanged(data: string) {
     if (data && this.users) {
       data = data.toUpperCase();
-      let props = ['firstName', 'lastName', 'address', 'city', 'orderTotal'];
+      let props = ['id', 'username', 'person'];
       let filtered = this.users.filter(item => {
         let match = false;
         for (let prop of props) {

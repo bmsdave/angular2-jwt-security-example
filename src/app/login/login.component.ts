@@ -38,11 +38,13 @@ export class LoginComponent {
 
   login(event, username, password) {
     event.preventDefault();
+
     let body = JSON.stringify({ username, password });
-    this.http.post('http://kl10ch.app-showcase.corelab.pro/api/api-token-auth/', body, { headers: contentHeaders })
+    this.http.post('http://kl10ch.app-showcase.corelab.pro/api/token/api-token-auth/', body, { headers: contentHeaders })
       .subscribe(
       response => {
-        localStorage.setItem('jwt', response.json().id_token);
+        console.log(response.json().token);
+        localStorage.setItem('jwt', response.json().token);
         this.router.parent.navigateByUrl('/home');
       },
       error => {

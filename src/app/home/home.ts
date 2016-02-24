@@ -1,8 +1,9 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES} from 'angular2/common';
-
+import {Router} from 'angular2/router';
 import {Title} from './services/title';
 import {XLarge} from './directives/x-large';
+import {LoggedInOutlet} from '../logged_in_outler';
 
 @Component({
   // The selector is what angular internally uses
@@ -17,7 +18,8 @@ import {XLarge} from './directives/x-large';
   // Doing so will allow Angular to attach our behavior to an element
   directives: [
     ...FORM_DIRECTIVES,
-    XLarge
+    XLarge,
+    LoggedInOutlet
   ],
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
@@ -29,8 +31,15 @@ import {XLarge} from './directives/x-large';
 export class Home {
   // Set our default values
   data = { value: '' };
+  jwt: string;
+  router: any;
   // TypeScript public modifiers
-  constructor(public title: Title) {
+  constructor(router: Router) {
+    this.router = router;
+    // We get the JWT from localStorage.
+    // We set them as instance variables to be able to use it in this
+    this.jwt = localStorage.getItem('jwt');
+    // We also store the decoded JSON from this JWT
 
   }
 
