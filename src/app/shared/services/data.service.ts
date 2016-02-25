@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
 import {Injectable} from 'angular2/core';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
-=======
-import { Injectable } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
->>>>>>> a5362b709c549914bf717062ca6e178250309b66
-
 
 
 @Injectable()
