@@ -1,17 +1,32 @@
 import { Component } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
-import { RouterLink } from 'angular2/router';
 //import { Observable } from 'rxjs/Observable';
-import { DataService } from '../shared/services/data.service';
+
 import { Sorter } from '../shared/sorter';
 import { FilterTextboxComponent } from './filterTextbox.component';
 import { SortByDirective } from '../shared/directives/sortby.directive';
 import { CapitalizePipe } from '../shared/pipes/capitalize.pipe';
 import { TrimPipe } from '../shared/pipes/trim.pipe';
 
+
+
+import {AuthService} from '../shared/services/auth.service';
+import { DataService } from '../shared/services/data.service';
+import {
+CORE_DIRECTIVES,
+FORM_DIRECTIVES,
+FormBuilder,
+ControlGroup,
+Validators,
+AbstractControl,
+Control
+} from 'angular2/common';
+import {Http, Headers} from 'angular2/http';
+import {Router, RouterLink} from 'angular2/router';
+import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
+
+
 @Component({
   selector: 'user-list',
-  providers: [DataService],
   template: `
     <div class="user-list view indent">
         <div class="container">
@@ -22,79 +37,28 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
                 </h3>
             </header>
             <br />
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="navbar">
-                        <ul class="nav navbar-nav">
-                            <li class="toolbar-item">
-                                <a (click)="changeDisplayMode('Card')" [class.active]="!listDisplayModeEnabled">
-                                    <span class="glyphicon glyphicon-th-large"></span> Card View
-                                </a>
-                            </li>
-                            <li class="toolbar-item">
-                                <a (click)="changeDisplayMode('List')" [class.active]="listDisplayModeEnabled">
-                                    <span class="glyphicon glyphicon-align-justify"></span> List View
-                                </a>
-                            </li>
-                        </ul>
-                        <filter-textbox class="navbar-right"
-                         (changed)="filterChanged($event)"></filter-textbox>
-                    </div>
-                </div>
-            </div>
             <a [routerLink]="['Home']">Home</a>
             <div class="container">
-                <div class="row card-container" [hidden]="listDisplayModeEnabled">
+                <div class="row card-container">
                     <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#user of filteredUsers">
-                        <div class="card">
-                            <div class="card-header">
-                                <a [routerLink]="['UserDetail',{id:user.id}]" class="white">{{user.firstName | capitalize }} {{ user.lastName | capitalize }}
-                                    <i class="icon-edit icon-white editIcon"></i></a>
-                            </div>
-                            <div class="card-body">
-                                <div class="clearfix">
-                                    <div class="pull-left card-body-right">
-                                        <div class="card-body-content">{{user.city | trim }}, {{user.state.name}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <md-card>
+                          <md-card-title>
+                            <md-card-title-text>
+                              <span class="md-headline"><a [routerLink]="['UserDetail',{username:user.username}]">
+                                {{user.username}}<i class="icon-edit icon-white editIcon"></i></a>
+                              </span>
+                              <span class="md-subhead" *ngIf="user.person">{{user.person.first_name}}<br>
+                                {{user.person.last_name}}
+                              </span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                              <div class="md-media-sm card-media"></div>
+                            </md-card-title-media>
+                          </md-card-title>
+                        </md-card>
                     </div>
                     <div [hidden]="filteredUsers.length">
                         No Records Found
-                    </div>
-                </div>
-                <div class="row grid-container" [hidden]="!listDisplayModeEnabled">
-                    <div class="col-md-10">
-                        <div class="table">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th sort-by="firstName" (sorted)="sort($event)">First Name</th>
-                                        <th sort-by="lastName" (sorted)="sort($event)">Last Name</th>
-                                        <th sort-by="address" (sorted)="sort($event)">Address</th>
-                                        <th sort-by="city" (sorted)="sort($event)">City</th>
-                                        <th sort-by="state.name" (sorted)="sort($event)">State</th>
-                                        <!-- Or you can do this directly rather than using sort-by directive -->
-                                        <th (click)="sort('orderTotal')">Order Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="#user of filteredUsers">
-                                        <td><a [routerLink]="['UserDetail',{id:user.id}]">{{ user.firstName | capitalize }}</a></td>
-                                        <td>{{ user.lastName | capitalize }}</td>
-                                        <td>{{ user.address }}</td>
-                                        <td>{{ user.city | trim }}</td>
-                                        <td>{{ user.state.name }}</td>
-                                        <td>{{ user.orderTotal | currency:'USD':true }}</td>
-                                    </tr>
-                                    <tr [hidden]="filteredUsers.length">
-                                        <td>&nbsp;</td>
-                                        <td colspan="6">No Records Found</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -102,9 +66,10 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
     </div>
   `,
   directives: [CORE_DIRECTIVES, RouterLink, FilterTextboxComponent, SortByDirective],
+  providers: [Http, DataService],
   pipes: [CapitalizePipe, TrimPipe]
 })
-export class UserListComponent {
+export class UserList {
 
   title: string;
   filterText: string;
@@ -113,7 +78,16 @@ export class UserListComponent {
   filteredUsers: any[] = [];
   sorter: Sorter;
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private http: Http,
+    private authHttp: AuthHttp,
+    private fb: FormBuilder,
+    private router: Router,
+    private dataService: DataService
+    ) {
+
+    this.dataService = dataService;
+     }
 
   ngOnInit() {
     this.title = 'UserList';
@@ -135,7 +109,7 @@ export class UserListComponent {
   filterChanged(data: string) {
     if (data && this.users) {
       data = data.toUpperCase();
-      let props = ['firstName', 'lastName', 'address', 'city', 'orderTotal'];
+      let props = ['id', 'username', 'person'];
       let filtered = this.users.filter(item => {
         let match = false;
         for (let prop of props) {

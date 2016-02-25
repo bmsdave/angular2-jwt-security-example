@@ -1,67 +1,22 @@
-import { Component, View } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http, Headers } from 'angular2/http';
-import { contentHeaders } from '../common/headers';
-
-// let styles   = require('./login.component.css');
-// let template = require('./login.component.html');
+import {Component} from 'angular2/core';
+import {Router} from 'angular2/router';
+import {AuthService} from '../shared/services/auth.service';
 
 @Component({
   selector: 'signup',
-  template: `
-    <div class="login jumbotron center-block">
-      <h1>Signup</h1>
-      <form role="form" (submit)="login($event, username.value, password.value)">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          #username
-          class="form-control"
-          id="username"
-          placeholder="Username"
-        >
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          #password
-          class="form-control"
-          id="password"
-          placeholder="Password"
-        >
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-        <a href="/signup">Click here to Signup</a>
-    </form>
-    </div>
-  `
+  template: require('./signup.component.html'),
 })
 
-export class SignupComponent {
-  constructor(public router: Router, public http: Http) {
+export class Signup {
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.authService = authService;
   }
 
-  login(event, username, password) {
-    event.preventDefault();
-    let body = JSON.stringify({ username, password });
-    this.http.post('http://kl10ch.app-showcase.corelab.pro/api/api-token-auth/', body, { headers: contentHeaders })
-      .subscribe(
-      response => {
-        localStorage.setItem('jwt', response.json().id_token);
-        this.router.parent.navigateByUrl('/home');
-      },
-      error => {
-        alert(error.text());
-        console.log(error.text());
-      }
-      );
+  signup() {
   }
 
-  signup(event) {
-    event.preventDefault();
-    this.router.parent.navigateByUrl('/signup');
-  }
 }

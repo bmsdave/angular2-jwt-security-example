@@ -1,86 +1,82 @@
-/*
- * Angular 2 decorators and services
- */
 import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {FORM_PROVIDERS} from 'angular2/common';
+import {ViewEncapsulation} from 'angular2/core';
+import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS} from 'ng2-material/all';
+import {AuthService} from './shared/services/auth.service';
 
-import {RouterActive} from './directives/router-active';
-import {Home} from './home/home';
+import { Login } from './login/login.component';
+import { Signup } from './signup/signup.component';
+import { Home } from './home/home.component';
+import { UserList } from './user/user_list.component';
+import { UserDetail } from './user/user_detail.component';
 
-import { UserListComponent } from './user/user_list.component';
-import { UserDetailComponent } from './user/user_detail.component';
-// import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-
-/*
- * App Component
- * Top Level Component
- */
 @Component({
   selector: 'app-container',
+<<<<<<< HEAD
+  providers: [MATERIAL_PROVIDERS],
+  directives: [...ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES],
+  styles: [require('../assets/css/index.scss')],
+  encapsulation: ViewEncapsulation.None,
+  template: require('./app.html')
+=======
   providers: [ ...FORM_PROVIDERS ],
   directives: [ ...ROUTER_DIRECTIVES, RouterActive ],
   pipes: [],
-  styles: [`
-    nav ul {
-      display: inline;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 60px;
-    }
-    nav li {
-      display: inline;
-    }
-    nav li.active {
-      background-color: lightgray;
-    }
-  `],
   template: `
     <header>
-      <div class="home jumbotron centered">
+      <md-toolbar class="md-theme-light">
         <ul class="hr">
-          <li><a [routerLink]="['Login']">Login</a></li>
-          <li><a [routerLink]="['Signup']">Signup</a></li>
-          <li><a [routerLink]="['Home']">Home</a></li>
-
-          <li><a [routerLink]="['UserList']">UserList</a></li>
-          <li><a [routerLink]="['UserDetail',{id:1}]">UserDetail with id = 1</a></li>
+          <md-button md-no-ink class="md-raised md-primary" *ngIf="!loggedIn()" [routerLink]="['Login']">Login</md-button>
+          <md-button md-no-ink class="md-primary md-primary" *ngIf="loggedIn()" (click)="logout()">Logout</md-button>
+          <md-button md-no-ink class="md-primary"><a [routerLink]="['Signup']">Signup</a></md-button>
+          <md-button md-no-ink class="md-primary"><a [routerLink]="['Home']">Home</a></md-button>
+          <md-button md-no-ink class="md-primary"><a [routerLink]="['UserList']">UserList</a></md-button>
         </ul>
-      </div>
+      </md-toolbar>
     </header>
     <main class="container">
       <router-outlet></router-outlet>
     </main>
   `
+>>>>>>> a5362b709c549914bf717062ca6e178250309b66
 })
 @RouteConfig([
-  { path: '/', component: Home, name: 'Index' },
-  { path: '/home', component: Home, name: 'Home' },
-  { path: '/users', name: 'UserList', component: UserListComponent },
-  { path: '/user/:id', name: 'UserDetail', component: UserDetailComponent },
-  { path: '/login', component: LoginComponent, name: 'Login' },
-  { path: '/signup', component: SignupComponent, name: 'Signup' },
-  // Async load a component using Webpack's require with es6-promise-loader
-  { path: '/about', loader: () => require('./about/about')('About'), name: 'About' }
-  // { path: '/**', redirectTo: ['Index'] }
+  { path: '/',                component: Home,       name: 'Index' },
+  { path: '/home',            component: Home,       name: 'Home' },
+  { path: '/users',           component: UserList,   name: 'UserList' },
+  { path: '/user/:username',  component: UserDetail, name: 'UserDetail' },
+  { path: '/login',           component: Login,      name: 'Login' },
+  { path: '/signup',          component: Signup,     name: 'Signup' },
 ])
 export class App {
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
-  constructor() {
+<<<<<<< HEAD
+=======
+  angularclassLogo = '';
+  name = 'KRONOS ERP';
+  url = '';
+>>>>>>> a5362b709c549914bf717062ca6e178250309b66
 
+  constructor(
+      private AuthService: AuthService,
+      private router: Router
+    ) {
+    this.AuthService = AuthService;
+    this.router = router;
   }
-}
 
-/*
- * Please review the https://github.com/AngularClass/angular2-examples/ repo for
- * more angular app examples that you may copy/paste
- * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
- * For help or questions please contact us at @AngularClass on twitter
- * or our chat on Slack at https://AngularClass.com/slack-join
- * or via chat on Gitter at https://gitter.im/AngularClass/angular2-webpack-starter
- */
+<<<<<<< HEAD
+  isAuth() {
+    return this.AuthService.isAuth();
+=======
+  loggedIn() {
+    return !!localStorage.getItem('jwt');
+>>>>>>> a5362b709c549914bf717062ca6e178250309b66
+  }
+
+  logout() {
+    console.log('logout succes');
+    this.AuthService.logout();
+    this.router.navigate(['Login']);
+  }
+
+}

@@ -10,7 +10,7 @@ var HtmlWebpackPlugin  = require('html-webpack-plugin');
 var ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 var metadata = {
-  title: 'Angular2 Webpack Starter by @gdi2990 from @AngularClass',
+  title: 'kronos',
   baseUrl: '/',
   host: 'localhost',
   port: 3000,
@@ -40,7 +40,7 @@ module.exports = {
 
   resolve: {
     // ensure loader extensions match
-    extensions: prepend(['.ts','.js','.json','.css','.html'], '.async') // ensure .async.ts etc also works
+    extensions: prepend(['.ts','.js','.json','.css','.scss', '.sass','.html'], '.async') // ensure .async.ts etc also works
   },
 
   module: {
@@ -61,6 +61,13 @@ module.exports = {
 
       // Support for CSS as raw text
       { test: /\.css$/,   loader: 'raw-loader' },
+
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader!sass-loader'
+      },
+
 
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw-loader', exclude: [ root('src/index.html') ] }
