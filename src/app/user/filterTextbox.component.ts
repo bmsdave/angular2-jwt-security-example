@@ -15,7 +15,6 @@ import { FORM_DIRECTIVES } from 'angular2/common';
 })
 export class FilterTextboxComponent {
 
-
     model: { filter: string } = { filter: null };
 
     @Output()
