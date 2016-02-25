@@ -41,7 +41,7 @@ import { DataService } from '../shared/services/data.service';
   directives: [CORE_DIRECTIVES, RouterLink],
   pipes: [CapitalizePipe, TrimPipe]
 })
-export class UserDetailComponent {
+export class UserDetail {
 
   title: string = 'User Detail';
   filteredUsers: any;

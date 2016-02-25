@@ -1,61 +1,37 @@
-import { Component, View } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http, Headers } from 'angular2/http';
-import { contentHeaders } from '../common/headers';
-
-// let styles   = require('./login.component.css');
-// let template = require('./login.component.html');
+import {Component} from 'angular2/core';
+import {Router} from 'angular2/router';
+import {AuthService} from '../shared/services/auth.service';
 
 @Component({
   selector: 'login',
-  template: `
-    <div class="login jumbotron center-block">
-      <h1>Login</h1>
-      <form role="form" (submit)="login($event, username.value, password.value)">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" #username class="form-control" id="username" placeholder="Username">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" #password class="form-control" id="password" placeholder="Password">
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-        <a href="/signup">Click here to Signup</a>
-    </form>
-    </div>
-  `
+  template: require('./login.component.html'),
+  providers: [AuthService]
 })
-// @View({
-//   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-//   template: template,
-//   styles: [ styles ]
-// })
-export class LoginComponent {
-  constructor(public router: Router, public http: Http) {
+
+export class Login {
+
+  constructor(
+      private authService: AuthService,
+      private router: Router
+    ) {
+    this.authService = authService;
   }
 
-  login(event, username, password) {
-    event.preventDefault();
+  login(username, password) {
+    console.log('inside login.ts function');
+    console.log(username);
 
-    let body = JSON.stringify({ username, password });
-    this.http.post('http://kl10ch.app-showcase.corelab.pro/api/token/api-token-auth/', body, { headers: contentHeaders })
+    this.authService.login(username, password)
       .subscribe(
-      response => {
-        console.log(response.json().token);
-        localStorage.setItem('jwt', response.json().token);
-        this.router.parent.navigateByUrl('/home');
+      res => {
+        this.authService.saveJwt(res.token);
       },
-      error => {
-        alert(error.text());
-        console.log(error.text());
+      err => {
+      },
+      () => {
+        this.authService.token = localStorage.getItem('token');
+        this.router.navigate(['Home']);
       }
       );
-  }
-
-  signup(event) {
-    event.preventDefault();
-    this.router.parent.navigateByUrl('/signup');
   }
 }

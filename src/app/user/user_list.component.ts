@@ -1,17 +1,32 @@
 import { Component } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
-import { RouterLink } from 'angular2/router';
 //import { Observable } from 'rxjs/Observable';
-import { DataService } from '../shared/services/data.service';
+
 import { Sorter } from '../shared/sorter';
 import { FilterTextboxComponent } from './filterTextbox.component';
 import { SortByDirective } from '../shared/directives/sortby.directive';
 import { CapitalizePipe } from '../shared/pipes/capitalize.pipe';
 import { TrimPipe } from '../shared/pipes/trim.pipe';
 
+
+
+import {AuthService} from '../shared/services/auth.service';
+import { DataService } from '../shared/services/data.service';
+import {
+CORE_DIRECTIVES,
+FORM_DIRECTIVES,
+FormBuilder,
+ControlGroup,
+Validators,
+AbstractControl,
+Control
+} from 'angular2/common';
+import {Http, Headers} from 'angular2/http';
+import {Router, RouterLink} from 'angular2/router';
+import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
+
+
 @Component({
   selector: 'user-list',
-  providers: [DataService],
   template: `
     <div class="user-list view indent">
         <div class="container">
@@ -95,9 +110,10 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
     </div>
   `,
   directives: [CORE_DIRECTIVES, RouterLink, FilterTextboxComponent, SortByDirective],
+  providers: [Http, DataService],
   pipes: [CapitalizePipe, TrimPipe]
 })
-export class UserListComponent {
+export class UserList {
 
   title: string;
   filterText: string;
@@ -106,7 +122,16 @@ export class UserListComponent {
   filteredUsers: any[] = [];
   sorter: Sorter;
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private http: Http,
+    private authHttp: AuthHttp,
+    private fb: FormBuilder,
+    private router: Router,
+    private dataService: DataService
+    ) {
+
+    this.dataService = dataService;
+     }
 
   ngOnInit() {
     this.title = 'UserList';
