@@ -7,8 +7,8 @@ import {AuthService} from './shared/services/auth.service';
 import { Login } from './login/login.component';
 import { Signup } from './signup/signup.component';
 import { Home } from './home/home.component';
-import { UserList } from './user/user_list.component';
-import { UserDetail } from './user/user_detail.component';
+import { UserList } from './user/components//list/user-list-component';
+import { UserDetail } from './user/components//detail/user-detail-component';
 
 @Component({
   selector: 'app-container',

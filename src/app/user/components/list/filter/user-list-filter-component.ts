@@ -3,14 +3,7 @@ import { FORM_DIRECTIVES } from 'angular2/common';
 
 @Component({
   selector: 'filter-textbox',
-  template: `
-    <form>
-         Filter:
-         <input type="text"
-                [(ngModel)]="model.filter"
-                (keyup)="filterChanged($event)"  />
-    </form>
-  `,
+  template: require('user-list-filter.html'),
   directives: [FORM_DIRECTIVES]
 })
 export class FilterTextboxComponent {
@@ -22,6 +15,6 @@ export class FilterTextboxComponent {
 
     filterChanged(event: any) {
         event.preventDefault();
-        this.changed.emit(this.model.filter); //Raise changed event
+        this.changed.emit(this.model.filter);
     }
 }
