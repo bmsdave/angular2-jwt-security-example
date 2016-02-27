@@ -7,6 +7,7 @@ import {AuthService} from './auth/auth-service';
 
 import { Base } from './base/base-component';
 import { Login } from './auth/components/login/login-component';
+import { Logout } from './auth/components/logout/logout-component';
 import { Signup } from './auth/components/signup/signup-component';
 import { UserList } from './user/components/list/user-list-component';
 import { UserDetail } from './user/components/detail/user-detail-component';
@@ -24,6 +25,7 @@ import { UserDetail } from './user/components/detail/user-detail-component';
   { path: '/users',           component: UserList,   name: 'UserList' },
   { path: '/user/:username',  component: UserDetail, name: 'UserDetail' },
   { path: '/login',           component: Login,      name: 'Login' },
+  { path: '/logout',          component: Logout,     name: 'Logout' },
   { path: '/signup',          component: Signup,     name: 'Signup' },
 ])
 export class App {

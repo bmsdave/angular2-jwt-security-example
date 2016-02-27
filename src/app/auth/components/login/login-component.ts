@@ -30,7 +30,7 @@ export class Login {
       },
       () => {
         this.authService.token = localStorage.getItem('token');
-        this.router.navigate(['Home']);
+        this.router.navigate(['Base']);
       }
       );
   }
