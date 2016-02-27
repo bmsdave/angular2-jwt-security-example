@@ -2,9 +2,9 @@
     <md-toolbar class="md-whiteframe-z1">
         <nav class="md-toolbar-tools">
           <button md-button *ngIf="isAuth()" (click)="logout()">Logout</button>
-          <a *ngIf="!isAuth()"  md-button  [routerLink]="['Login']">Login</a>
-          <a *ngIf="!isAuth()" md-button [routerLink]="['Signup']">Signup</a>
-          <a *ngIf="isAuth()" md-button [routerLink]="['Home']">Home</a>
+          <a *ngIf="isAuth()"  md-button  [routerLink]="['Login']">Login</a>
+          <a *ngIf="isAuth()" md-button [routerLink]="['Signup']">Signup</a>
+          <a *ngIf="isAuth()" md-button [routerLink]="['Base']">Base</a>
           <a *ngIf="isAuth()" md-button [routerLink]="['UserList']">UserList</a>
         </nav>
     </md-toolbar>

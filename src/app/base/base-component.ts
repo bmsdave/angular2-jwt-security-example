@@ -1,18 +1,22 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {AuthService} from '../shared/services/auth.service';
+import {AuthService} from '../auth/auth-service';
 
 @Component({
-  selector: 'home',
-  template: require('./home.component.html')
+  selector: 'base',
+  template: `
+    <div>
+      <span x-large>Your jwt</span>
+      <pre>{{ token | json }}</pre>
+    </div>
+  `
 })
-
-export class Home {
+export class Base {
   token: string;
 
   constructor(
-      private AuthService: AuthService,
-      private router: Router
+    private AuthService: AuthService,
+    private router: Router
     ) {
     this.AuthService = AuthService;
     this.router = router;

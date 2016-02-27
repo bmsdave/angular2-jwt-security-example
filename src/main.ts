@@ -1,10 +1,11 @@
-import {AuthService} from './app/shared/services/auth.service';
 import {provide} from 'angular2/core';
 import {bootstrap, ELEMENT_PROBE_PROVIDERS} from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, PathLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS, ConnectionBackend} from 'angular2/http';
 import {App} from './app/app';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
+
+import {AuthService} from './app/auth/auth-service';
 
 document.addEventListener('DOMContentLoaded', function main() {
   bootstrap(App, [

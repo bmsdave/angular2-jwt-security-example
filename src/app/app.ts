@@ -2,13 +2,14 @@ import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ViewEncapsulation} from 'angular2/core';
 import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS} from 'ng2-material/all';
-import {AuthService} from './shared/services/auth.service';
 
-import { Login } from './login/login.component';
-import { Signup } from './signup/signup.component';
-import { Home } from './home/home.component';
-import { UserList } from './user/components//list/user-list-component';
-import { UserDetail } from './user/components//detail/user-detail-component';
+import {AuthService} from './auth/auth-service';
+
+import { Base } from './base/base-component';
+import { Login } from './auth/components/login/login-component';
+import { Signup } from './auth/components/signup/signup-component';
+import { UserList } from './user/components/list/user-list-component';
+import { UserDetail } from './user/components/detail/user-detail-component';
 
 @Component({
   selector: 'app-container',
@@ -19,8 +20,7 @@ import { UserDetail } from './user/components//detail/user-detail-component';
   template: require('./app.html')
 })
 @RouteConfig([
-  { path: '/',                component: Home,       name: 'Index' },
-  { path: '/home',            component: Home,       name: 'Home' },
+  { path: '/',                component: Base,       name: 'Base' },
   { path: '/users',           component: UserList,   name: 'UserList' },
   { path: '/user/:username',  component: UserDetail, name: 'UserDetail' },
   { path: '/login',           component: Login,      name: 'Login' },
