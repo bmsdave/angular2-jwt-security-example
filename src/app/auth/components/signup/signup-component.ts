@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {AuthService} from '../../auth-service';
-import { IUser } from '../../../base/interfaces/interfaces';
+import { IUser, IPerson } from '../../../base/interfaces/interfaces';
 
 @Component({
   selector: 'signup',
@@ -22,7 +22,7 @@ export class Signup {
       id: null,
       username: null,
       password: null,
-      person: null
+      person: null,
     };
   }
 

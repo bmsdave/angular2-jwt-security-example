@@ -1,14 +1,42 @@
-<div class="login jumbotron center-block">
-  <h1>Signup</h1>
-  <form role="form" (submit)="signup()">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" [(ngModel)]='user.username' class="form-control" id="username" placeholder="Username">
-    </div>
-    <div class="form-group">
-      <label for="password">password</label>
-      <input type="text" [(ngModel)]='user.password' class="form-control" id="username" placeholder="password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+<div layout="column" class="md-inline-form">
+  <h1>SignUp</h1>
+  <md-content layout-padding>
+      <div>
+        <form role="form" (submit)="signup()" name="signUpForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" [(ngModel)]='user.username' class="form-control" id="username" placeholder="Username">
+          </div>
+<!--           <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" [(ngModel)]='user.person.first_name' class="form-control" id="first_name" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" [(ngModel)]='user.person.last_name' class="form-control" id="last_name" placeholder="Username">
+          </div> -->
+          <div class="form-group">
+            <label for="emails">emails</label>
+            <input type="text" [(ngModel)]='user.emails' class="form-control" id="emails" placeholder="emails">
+          </div>
+          <div class="form-group">
+            <label for="positions">positions</label>
+            <input type="text" [(ngModel)]='user.positions' class="form-control" id="positions" placeholder="positions">
+          </div>
+          <div class="form-group">
+            <label for="phones">phones</label>
+            <input type="text" [(ngModel)]='user.phones' class="form-control" id="phones" placeholder="phones">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" [(ngModel)]='user.password' class="form-control" id="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation">Password confirmation</label>
+            <input type="password_confirmation" [(ngModel)]='user.password_confirmation' class="form-control" id="password_confirmation" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </md-content>
 </div>

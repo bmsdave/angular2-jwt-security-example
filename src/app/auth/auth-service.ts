@@ -28,8 +28,8 @@ export class AuthService {
 
   isAuth() {
     var token = localStorage.getItem('token');
-    // return !(token === null);
-    return true;
+    return !(token === null);
+    // return true;
   };
 
   login(user: IUser) {
