@@ -1,10 +1,10 @@
 import { Component, View, Inject } from 'angular2/core';
 import { Observable } from 'rxjs/Observable';
 
-import { IUser, UserService } from '../../user-service';
+import { UserService } from '../../user-service';
 import { CORE_DIRECTIVES } from 'angular2/common';
 import { Router, RouterLink } from 'angular2/router';
-
+import { IUser } from '../../../base/interfaces/interfaces';
 
 @Component({
   selector: 'user-list',

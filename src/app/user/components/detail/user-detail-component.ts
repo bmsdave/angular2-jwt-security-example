@@ -1,7 +1,8 @@
 import { Component, View, Inject } from 'angular2/core';
 import { Observable } from 'rxjs/Observable';
 
-import { IUser, UserService } from '../../user-service';
+import { UserService } from '../../user-service';
+import { IUser } from '../../../base/interfaces/interfaces';
 import { CORE_DIRECTIVES } from 'angular2/common';
 import { Router, RouterLink } from 'angular2/router';
 
@@ -20,7 +21,7 @@ export class UserDetail {
   constructor( @Inject(UserService) private UserService) {
     // UserService.selectUser.subscribe(newSelectedUser => this.UserService = newSelectedUser)
     this.user = {
-      id:1,
+      id: 1,
       username: 'Demo',
       person: null
     };

@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {AuthService} from '../../auth-service';
+import { IUser } from '../../../base/interfaces/interfaces';
 
 @Component({
   selector: 'login',
@@ -10,18 +11,25 @@ import {AuthService} from '../../auth-service';
 
 export class Login {
 
+  user: IUser;
+
   constructor(
     private authService: AuthService,
     private router: Router
     ) {
     this.authService = authService;
+    this.user = {
+      id: null,
+      username: null,
+      password: null,
+      person: null
+    };
   }
 
-  login(username, password) {
+  login() {
     console.log('inside login.ts function');
-    console.log(username);
 
-    this.authService.login(username, password)
+    this.authService.login(this.user)
       .subscribe(
       res => {
         this.authService.saveJwt(res.token);

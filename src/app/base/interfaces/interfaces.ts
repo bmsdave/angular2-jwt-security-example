@@ -3,33 +3,33 @@
 // todo 1. описать обязательные/необязательные
 // todo 2. описать методы
 
-export interface Email {
+export interface IEmail {
   id: number;
   cat: string;
   body: string;
 }
 
-export interface Corp {
+export interface ICorp {
   id: number;
   title: string;
 }
 
-export interface Unit {
+export interface IUnit {
   id: number;
   title: string;
   parent?: any;
-  corp: Corp;
+  corp: ICorp;
 }
 
-export interface Position {
+export interface IPosition {
   id: number;
-  unit: Unit;
+  unit: IUnit;
   title: string;
   since: string;
   until?: any;
 }
 
-export interface Phone {
+export interface IPhone {
   id: number;
   cat: string;
   country_code: number;
@@ -37,21 +37,21 @@ export interface Phone {
   number: string;
 }
 
-export interface Person {
+export interface IPerson {
   user: number;
   first_name: string;
   last_name: string;
   mid_name: string;
   date_of_birth: string;
   sex: string;
-  emails: Email[];
-  positions: Position[];
-  phones: Phone[];
+  emails: IEmail[];
+  positions: IPosition[];
+  phones: IPhone[];
 }
 
-export interface User {
-  id: number;
+export interface IUser {
+  id?: number;
   username: string;
   password?: string;
-  person: Person;
+  person?: IPerson;
 }

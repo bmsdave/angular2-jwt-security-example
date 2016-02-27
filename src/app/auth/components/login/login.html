@@ -1,7 +1,7 @@
-<form (submit)="login(username.value, password.value)">
+<form (submit)="login()">
   <label for="username">Username</label>
-  <input type="text" #username class="form-control" id="username" placeholder="Username">
+  <input type="text" [(ngModel)]='user.username' class="form-control" id="username" placeholder="Username">
   <label for="password">Password</label>
-  <input type="password" #password class="form-control" id="password" placeholder="Password">
+  <input type="password" [(ngModel)]='user.password' class="form-control" id="password" placeholder="Password">
   <button type="submit">Submit</button>
 </form>
