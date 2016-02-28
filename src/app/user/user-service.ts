@@ -6,6 +6,8 @@ import {Router} from 'angular2/router';
 import {IUser} from '../base/interfaces/interfaces';
 
 
+// TODO: refactor setDefaultTask
+
 @Injectable()
 export class UserService {
 
@@ -59,6 +61,7 @@ export class UserService {
           'mid_name': 'Александрович',
           'date_of_birth': '1991-05-19',
           'sex': 'm',
+          'bio': '',
           'emails':
           [
             { 'id': 10, 'cat': 'w', 'body': 'CLTanuki@gmail.com' }
