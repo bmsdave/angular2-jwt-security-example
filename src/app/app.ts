@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ViewEncapsulation} from 'angular2/core';
-import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS} from 'ng2-material/all';
+import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS, Media, SidenavService} from 'ng2-material/all';
 
 import {AuthService} from './auth/auth-service';
 
@@ -36,7 +36,8 @@ export class App {
 
   constructor(
       private AuthService: AuthService,
-      private router: Router
+      private router: Router,
+      public sidenav: SidenavService
     ) {
     this.AuthService = AuthService;
     this.router = router;
@@ -50,6 +51,18 @@ export class App {
     console.log('logout succes');
     this.AuthService.logout();
     this.router.navigate(['Login']);
+  }
+
+  hasMedia(breakSize: string): boolean {
+    return Media.hasMedia(breakSize);
+  }
+
+  open(name: string) {
+    this.sidenav.show(name);
+  }
+
+  close(name: string) {
+    this.sidenav.hide(name);
   }
 
 }
