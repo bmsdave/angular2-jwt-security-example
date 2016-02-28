@@ -1,15 +1,15 @@
-<div layout="column" style="height:500px;">
+<div layout="column">
   <md-sidenav-container layout="row" flex>
     <md-sidenav name="left" [style]="hasMedia('gt-sm') ? 'side' : 'over'">
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Menu</h1>
       </md-toolbar>
       <md-content layout-padding>
-        <button *ngIf="isAuth()" md-button [routerLink]="['Logout']">Logout</button>
-        <button *ngIf="!isAuth()" md-button [routerLink]="['Login']">Login</button>
-        <button *ngIf="!isAuth()" md-button [routerLink]="['Signup']">Signup</button>
-        <button *ngIf="isAuth()" md-button [routerLink]="['Base']">Base</button>
-        <button *ngIf="isAuth()" md-button [routerLink]="['UserList']">UserList</button>
+        <p *ngIf="isAuth()"><button md-button [routerLink]="['Logout']">Logout</button></p>
+        <p *ngIf="!isAuth()"><button md-button [routerLink]="['Login']">Login</button></p>
+        <p *ngIf="!isAuth()"><button md-button [routerLink]="['Signup']">Signup</button></p>
+        <p *ngIf="isAuth()"><button md-button [routerLink]="['Base']">Base</button></p>
+        <p *ngIf="isAuth()"><button md-button [routerLink]="['UserList']">UserList</button></p>
       </md-content>
     </md-sidenav>
     <md-content flex layout-padding>
