@@ -38,7 +38,7 @@ export class AuthService {
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/token/api-token-auth/', JSON.stringify(user), {
+    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/', JSON.stringify(user), {
       headers: header
     })
       .map(res => res.json());
@@ -51,7 +51,7 @@ export class AuthService {
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/user/', JSON.stringify(user), {
+    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signup/', JSON.stringify(user), {
       headers: header
     })
       .map(res => res.json());
