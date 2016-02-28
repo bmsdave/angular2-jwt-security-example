@@ -32,6 +32,7 @@ export class Signup {
         mid_name: null,
         date_of_birth: null,
         sex: null,
+        bio: null,
         emails:
         [
           { id: null, cat: null, body: null }
