@@ -1,12 +1,15 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
+import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
+import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {AuthService} from '../../auth-service';
 import { IUser, IPerson } from '../../../base/interfaces/interfaces';
 
 @Component({
   selector: 'signup',
   template: require('./signup.html'),
-  providers: [AuthService]
+  providers: [AuthService],
+  directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Signup {
