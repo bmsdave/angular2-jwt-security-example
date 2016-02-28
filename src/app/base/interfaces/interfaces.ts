@@ -44,6 +44,7 @@ export interface IPerson {
   mid_name: string;
   date_of_birth: string;
   sex: string;
+  bio: string;
   emails: IEmail[];
   positions: IPosition[];
   phones: IPhone[];
