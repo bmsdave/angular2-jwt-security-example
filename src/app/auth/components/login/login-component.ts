@@ -21,8 +21,49 @@ export class Login {
     this.user = {
       id: null,
       username: null,
-      password: null,
-      person: null
+      person:
+      {
+        user: null,
+        first_name: null,
+        last_name: null,
+        mid_name: null,
+        date_of_birth: null,
+        sex: null,
+        emails:
+        [
+          { id: null, cat: null, body: null }
+        ],
+        positions:
+        [
+          {
+            id: null,
+            unit:
+            {
+              id: null,
+              title: null,
+              parent: null,
+              corp:
+              {
+                id: null,
+                title: null
+              }
+            },
+            title: null,
+            since: null,
+            until: null
+          }
+        ],
+        phones:
+        [
+          {
+            id: null,
+            cat: null,
+            country_code: null,
+            area_code: null,
+            number: null
+          }
+        ]
+      }
     };
   }
 

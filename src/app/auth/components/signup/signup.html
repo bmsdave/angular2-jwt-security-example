@@ -3,38 +3,23 @@
   <md-content layout-padding>
       <div>
         <form role="form" (submit)="signup()" name="signUpForm">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" [(ngModel)]='user.username' class="form-control" id="username" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="first_name">First Name</label>
-            <input type="text" [(ngModel)]='user.person.first_name' class="form-control" id="first_name" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input type="text" [(ngModel)]='user.person.last_name' class="form-control" id="last_name" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="emails">emails</label>
-            <input type="text" [(ngModel)]='user.emails' class="form-control" id="emails" placeholder="emails">
-          </div>
-          <div class="form-group">
-            <label for="positions">positions</label>
-            <input type="text" [(ngModel)]='user.positions' class="form-control" id="positions" placeholder="positions">
-          </div>
-          <div class="form-group">
-            <label for="phones">phones</label>
-            <input type="text" [(ngModel)]='user.phones' class="form-control" id="phones" placeholder="phones">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" [(ngModel)]='user.password' class="form-control" id="password" placeholder="Password">
-          </div>
-          <div class="form-group">
-            <label for="password_confirmation">Password confirmation</label>
-            <input type="password_confirmation" [(ngModel)]='user.password_confirmation' class="form-control" id="password_confirmation" placeholder="Password">
-          </div>
+<div class="form-group"><label for="username">username</label><input type="text" [(ngModel)]='user.username' class="form-control" id="username" placeholder="username"></div>
+<div class="form-group"><label for="password">password</label><input type="text" [(ngModel)]='user.password' class="form-control" id="password" placeholder="password"></div>
+<div class="form-group"><label for="confirm_password">confirm_password</label><input type="text" [(ngModel)]='user.confirm_password' class="form-control" id="confirm_password" placeholder="confirm_password"></div>
+<div class="form-group"><label for="first_name">first_name</label><input type="text" [(ngModel)]='user.person.first_name' class="form-control" id="first_name" placeholder="first_name"></div>
+<div class="form-group"><label for="last_name">last_name</label><input type="text" [(ngModel)]='user.person.last_name' class="form-control" id="last_name" placeholder="last_name"></div>
+<div class="form-group"><label for="mid_name">mid_name</label><input type="text" [(ngModel)]='user.person.mid_name' class="form-control" id="mid_name" placeholder="mid_name"></div>
+<div class="form-group"><label for="date_of_birth">date_of_birth</label><input type="text" [(ngModel)]='user.person.date_of_birth' class="form-control" id="date_of_birth" placeholder="date_of_birth"></div>
+<div class="form-group"><label for="sex">sex</label><input type="text" [(ngModel)]='user.person.sex' class="form-control" id="sex" placeholder="sex"></div>
+<div class="form-group"><label for="emails_body">emails_body</label><input type="text" [(ngModel)]='user.person.emails[0].body' class="form-control" id="emails_body" placeholder="emails_body"></div>
+<div class="form-group"><label for="positions_unit">positions_unit</label><input type="text" [(ngModel)]='user.person.positions[0].unit.title' class="form-control" id="positions_unit" placeholder="positions_unit"></div>
+<div class="form-group"><label for="positions_unit">positions_unit</label><input type="text" [(ngModel)]='user.person.positions[0].unit.parent' class="form-control" id="positions_unit" placeholder="positions_unit"></div>
+<div class="form-group"><label for="positions_unit_corp">positions_unit_corp</label><input type="text" [(ngModel)]='user.person.positions[0].unit.corp.title' class="form-control" id="positions_unit_corp" placeholder="positions_unit_corp"></div>
+<div class="form-group"><label for="positions_title">positions_title</label><input type="text" [(ngModel)]='user.person.positions[0].title' class="form-control" id="positions_title" placeholder="positions_title"></div>
+<div class="form-group"><label for="positions_since">positions_since</label><input type="text" [(ngModel)]='user.person.positions[0].since' class="form-control" id="positions_since" placeholder="positions_since"></div>
+<div class="form-group"><label for="positions_until">positions_until</label><input type="text" [(ngModel)]='user.person.positions[0].until' class="form-control" id="positions_until" placeholder="positions_until"></div>
+<div class="form-group"><label for="phone">phone</label><input type="text" [(ngModel)]='user.person.phones[0].number' class="form-control" id="phone" placeholder="phone"></div>
+
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
