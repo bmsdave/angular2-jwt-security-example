@@ -9,7 +9,7 @@
 
   <md-content layout-padding>
     <div>
-      <form name="userForm">
+      <form name="signUpForm" (submit)="signup()">
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
@@ -53,7 +53,7 @@
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Birth date</label>
-            <input md-input [(ngModel)]="user.person.date_of_birth">
+            <input md-input [(ngModel)]="user.person.date_of_birth" type="date">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
