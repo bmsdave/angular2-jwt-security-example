@@ -9,7 +9,6 @@ import { IUser } from '../base/interfaces/interfaces';
 export class AuthService {
   token: any;
   jwtHelper: JwtHelper = new JwtHelper();
-  public activation_data: Observable<any>;
 
   constructor(private http: Http, private router: Router, private authHttp: AuthHttp) { }
 
