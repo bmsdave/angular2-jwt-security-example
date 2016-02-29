@@ -85,6 +85,12 @@ export class Login {
         this.authService.token = localStorage.getItem('token');
         this.router.navigate(['Base']);
       }
-      );
+    );
+  }
+
+  ngOnInit() {
+    if (this.authService.isAuth()) {
+      this.router.navigate(['Base']);
+    }
   }
 }
