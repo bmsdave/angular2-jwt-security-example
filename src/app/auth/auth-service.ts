@@ -2,12 +2,15 @@ import {Http, Headers} from 'angular2/http';
 import {Router} from 'angular2/router';
 import {Injectable} from 'angular2/core';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
+import {Observable} from 'rxjs/Observable';
 import { IUser } from '../base/interfaces/interfaces';
 
 @Injectable()
 export class AuthService {
   token: any;
   jwtHelper: JwtHelper = new JwtHelper();
+  public activation_data: Observable<any>;
+
   constructor(private http: Http, private router: Router, private authHttp: AuthHttp) { }
 
   saveJwt(jwt) {
@@ -44,6 +47,16 @@ export class AuthService {
       .map(res => res.json());
   };
 
+  activate(activation_key: string) {
+    console.log('inside authService.activate');
+    var header = new Headers();
+    header.append('Content-Type', 'application/json');
+
+    return this.http.get('http://kl10ch.app-showcase.corelab.pro/api/auth/activate/'.concat(activation_key), {
+      headers: header
+    })
+      .map(res => res.text());
+  }
 
   signup(user: IUser) {
     console.log('inside authService.signup');

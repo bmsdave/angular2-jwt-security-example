@@ -1,90 +1,40 @@
-import {Component} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Component, Inject} from 'angular2/core';
+import {Router, RouteParams} from 'angular2/router';
+import {Http, Headers, Response} from 'angular2/http';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import {AuthService} from '../../auth-service';
-import { IUser } from '../../../base/interfaces/interfaces';
 
 @Component({
-  selector: 'login',
-  template: require('./login.html'),
+  selector: 'activate',
+  template: require('./activation.html'),
   providers: [AuthService],
   directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Activation {
 
-  user: IUser;
+  activation_key: string;
+  activation_sucess: boolean;
 
   constructor(
     private authService: AuthService,
+    private params: RouteParams,
     private router: Router
     ) {
-    this.authService = authService;
-    this.user = {
-      id: null,
-      username: null,
-      person:
-      {
-        user: null,
-        first_name: null,
-        last_name: null,
-        mid_name: null,
-        date_of_birth: null,
-        sex: null,
-        bio: null,
-        emails:
-        [
-          { id: null, cat: null, body: null }
-        ],
-        positions:
-        [
-          {
-            id: null,
-            unit:
-            {
-              id: null,
-              title: null,
-              parent: null,
-              corp:
-              {
-                id: null,
-                title: null
-              }
-            },
-            title: null,
-            since: null,
-            until: null
-          }
-        ],
-        phones:
-        [
-          {
-            id: null,
-            cat: null,
-            country_code: null,
-            area_code: null,
-            number: null
-          }
-        ]
-      }
-    };
+    this.activation_key = params.get('activation_key');
   }
 
-  activate() {
-    console.log('inside login.ts function');
-
-    this.authService.login(this.user)
+  ngOnInit() {
+    this.authService.activate(this.activation_key)
       .subscribe(
-      res => {
-        this.authService.saveJwt(res.token);
-      },
-      err => {
-      },
-      () => {
-        this.authService.token = localStorage.getItem('token');
-        this.router.navigate(['Base']);
-      }
-    );
+        res => {
+          this.router.navigate(['Login']);
+        },
+        err => {
+          this.activation_sucess = false;
+        }
+      );
   }
+
 }
