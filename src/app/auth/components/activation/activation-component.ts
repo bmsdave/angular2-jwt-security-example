@@ -15,7 +15,7 @@ import {AuthService} from '../../auth-service';
 export class Activation {
 
   activation_key: string;
-  activation_sucess: boolean;
+  activation_success: boolean;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +32,7 @@ export class Activation {
           this.router.navigate(['Login']);
         },
         err => {
-          this.activation_sucess = false;
+          this.activation_success = false;
         }
       );
   }
