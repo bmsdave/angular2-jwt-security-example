@@ -13,6 +13,8 @@ import { Logout } from './auth/components/logout/logout-component';
 import { Signup } from './auth/components/signup/signup-component';
 import { Me } from './auth/components/me/me-component';
 
+import { PersonComponent } from './directory/person/person-component';
+
 import { Activation } from './auth/components/activation/activation-component';
 import { UserList } from './user/components/list/user-list-component';
 import { UserDetail } from './user/components/detail/user-detail-component';
@@ -29,6 +31,8 @@ import { UserDetail } from './user/components/detail/user-detail-component';
   { path: '/',                          component: Base,       name: 'Base' },
   { path: '/users',                     component: UserList,   name: 'UserList' },
   { path: '/user/:username',            component: UserDetail, name: 'UserDetail' },
+
+  { path: '/person',                    component: PersonComponent,     name: 'Person' },
 
   { path: '/me',                        component: Me,         name: 'Me' },
   { path: '/login',                     component: Login,      name: 'Login' },
