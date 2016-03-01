@@ -9,7 +9,7 @@ export interface IEmail {
   body: string;
 }
 
-export interface ICorp {
+export interface IEnterprise {
   id: number;
   title: string;
 }
@@ -18,7 +18,7 @@ export interface IUnit {
   id: number;
   title: string;
   parent?: any;
-  corp: ICorp;
+  corp: IEnterprise;
 }
 
 export interface IPosition {
