@@ -1,1 +1,31 @@
-{{person}}
+<div layout="column" class="md-inline-form">
+  <md-content layout-padding>
+    <div>
+      <form name="unitForm" (submit)="save()">
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Enterprise</label>
+            <input md-input [(ngModel)]="unit.enterprise" type="text">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Parent Unit</label>
+            <input md-input [(ngModel)]="unit.parent" type="text">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Title</label>
+            <input md-input [(ngModel)]="unit.title" type="text">
+          </md-input-container>
+        </div>
+
+        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="Save">
+          Save
+        </button>
+
+      </form>
+    </div>
+  </md-content>
+</div>
+
