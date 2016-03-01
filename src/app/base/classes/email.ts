@@ -1,6 +1,6 @@
-import { IEmail } from '../interfaces/interfaces';
+import { IEMail } from '../interfaces/interfaces';
 
-export class Email implements IEmail {
+export class EMail implements IEMail {
 
   public id: number = null;
   public cat: string = null;

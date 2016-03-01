@@ -3,7 +3,7 @@
 // TODO: описать обязательные/необязательные
 // TODO: описать методы
 
-export interface IEmail {
+export interface IEMail {
   id: number;
   cat: string;
   body: string;
@@ -18,7 +18,7 @@ export interface IUnit {
   id: number;
   title: string;
   parent?: any;
-  corp: IEnterprise;
+  enterprise: IEnterprise;
 }
 
 export interface IPosition {
@@ -45,7 +45,7 @@ export interface IPerson {
   date_of_birth: string;
   sex: string;
   bio: string;
-  emails: IEmail[];
+  emails: IEMail[];
   positions: IPosition[];
   phones: IPhone[];
 }
