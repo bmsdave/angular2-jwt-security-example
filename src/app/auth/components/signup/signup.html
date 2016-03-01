@@ -14,54 +14,54 @@
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Display name</label>
-            <input md-input [(ngModel)]="user.username">
+            <input md-input [(ngModel)]="me.username">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Email</label>
-            <input md-input [(ngModel)]="user.person.emails[0].body" type="email">
+            <input md-input [(ngModel)]="me.person.emails[0].body" type="email">
           </md-input-container>
         </div>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>First name</label>
-            <input md-input [(ngModel)]="user.person.first_name">
+            <input md-input [(ngModel)]="me.person.first_name">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Last Name</label>
-            <input md-input [(ngModel)]="user.person.last_name">
+            <input md-input [(ngModel)]="me.person.last_name">
           </md-input-container>
         </div>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Birth date</label>
-            <input md-input [(ngModel)]="user.person.date_of_birth" type="date">
+            <input md-input [(ngModel)]="me.person.date_of_birth" type="date">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Sex</label>
-            <input md-input [(ngModel)]="user.person.sex">
+            <input md-input [(ngModel)]="me.person.sex">
           </md-input-container>
         </div>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Password</label>
-            <input md-input [(ngModel)]="user.password" type="password">
+            <input md-input [(ngModel)]="me.password" type="password">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Password confirmation</label>
-            <input md-input [(ngModel)]="user.confirm_password" type="password">
+            <input md-input [(ngModel)]="me.confirm_password" type="password">
           </md-input-container>
         </div>
 
         <md-input-container class="md-block">
           <label>Biography</label>
-          <textarea md-input [(ngModel)]="user.person.bio" columns="1" md-maxlength="150" rows="5"></textarea>
+          <textarea md-input [(ngModel)]="me.person.bio" columns="1" md-maxlength="150" rows="5"></textarea>
         </md-input-container>
 
         <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignIn">

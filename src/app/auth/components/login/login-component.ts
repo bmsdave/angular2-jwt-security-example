@@ -4,6 +4,7 @@ import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import {AuthService} from '../../auth-service';
 import { IUser } from '../../../base/interfaces/interfaces';
+import { User } from '../../../user/user';
 
 @Component({
   selector: 'login',
@@ -14,78 +15,20 @@ import { IUser } from '../../../base/interfaces/interfaces';
 
 export class Login {
 
-  user: IUser;
+  me: User;
 
   constructor(
     private authService: AuthService,
     private router: Router
     ) {
-    this.authService = authService;
-    this.user = {
-      id: null,
-      username: null,
-      person:
-      {
-        user: null,
-        first_name: null,
-        last_name: null,
-        mid_name: null,
-        date_of_birth: null,
-        sex: null,
-        bio: null,
-        emails:
-        [
-          { id: null, cat: null, body: null }
-        ],
-        positions:
-        [
-          {
-            id: null,
-            unit:
-            {
-              id: null,
-              title: null,
-              parent: null,
-              corp:
-              {
-                id: null,
-                title: null
-              }
-            },
-            title: null,
-            since: null,
-            until: null
-          }
-        ],
-        phones:
-        [
-          {
-            id: null,
-            cat: null,
-            country_code: null,
-            area_code: null,
-            number: null
-          }
-        ]
-      }
-    };
+    authService.me.subscribe(me => this.me = me);
+    authService.fetchMe();
   }
 
   login() {
     console.log('inside login.ts function');
 
-    this.authService.login(this.user)
-      .subscribe(
-      res => {
-        this.authService.saveJwt(res.token);
-      },
-      err => {
-      },
-      () => {
-        this.authService.token = localStorage.getItem('token');
-        this.router.navigate(['Base']);
-      }
-    );
+    this.authService.login(this.me);
   }
 
   ngOnInit() {
