@@ -179,8 +179,8 @@ module.exports = {
   ],
   // Other module loader config
   tslint: {
-    emitErrors: true,
-    failOnHint: true
+    emitErrors: false,
+    failOnHint: false
   },
   // don't use devServer for production
 

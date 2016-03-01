@@ -1,8 +1,9 @@
 import { Http, Headers } from 'angular2/http';
 import { Router } from 'angular2/router';
 import { Injectable } from 'angular2/core';
-import { AuthHttp } from 'angular2-jwt';
+import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/share';
 import { IUser } from '../base/interfaces/interfaces';
 import { User } from '../user/user';
 
@@ -12,18 +13,21 @@ export class AuthService {
 
   public me: Observable<User>;
 
-  private _meObserver: any;
-  private _me: User = new User({id: null, username: null});
+  public _meObserver: any;
+  public _me: User = new User({id: null, username: null});
+
+  jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http, private authHttp: AuthHttp, private router: Router) {
 
 
   this.me = new Observable(observer =>
-    this._meObserver = observer);
+      this._meObserver = observer).share();;
 
   }
 
   fetchMe() {
+      console.log('fetchMe!!!! ', this._me);
       this._meObserver.next(this._me);
   }
 
@@ -37,6 +41,16 @@ export class AuthService {
     return localStorage.getItem('token');
   };
 
+  getJwtData() {
+    var token = localStorage.getItem('token');
+
+    console.log(
+      this.jwtHelper.decodeToken(token),
+      this.jwtHelper.getTokenExpirationDate(token),
+      this.jwtHelper.isTokenExpired(token)
+    );
+  };
+
   deleteJwt() {
     localStorage.removeItem('token');
   };
@@ -47,26 +61,24 @@ export class AuthService {
   };
 
   login(user: User) {
-    console.log('inside authService.login');
-    console.log(user);
-    this._me = user;
+    console.log('inside login');
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/', JSON.stringify(this._me), {
+    this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/', JSON.stringify(user), {
       headers: header
     })
     .map(res => res.json()).subscribe(
     data => {
-    if (data.token)
-      this.saveJwt(data.token);
-      this._me.is_auth = true;
-      this.getMe();
-      console.log('this.me: ', this.me);
-      this._me.is_auth = true;
+      if (data.token){
+        this.saveJwt(data.token);
+        this._me.is_auth = true;
+        this.getMe();
+        this.router.navigate(['Base']);
+      }
     },
-    err => console.log('getUser.error: ', err),
-    () => console.log('get user complete')
+    err => console.log('login user error: ', err),
+    () => console.log('login user complete')
     );
   };
 
@@ -83,14 +95,11 @@ export class AuthService {
 
   signup(user: User) {
     console.log('inside authService.signup');
-    console.log(user);
-
-    this._me = user;
 
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signup/', JSON.stringify(this._me), {
+    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signup/', JSON.stringify(user), {
       headers: header
     })
       .map(res => res.json());
@@ -98,25 +107,27 @@ export class AuthService {
 
   logout() {
     this.deleteJwt();
-    this.me = null;
+    this._me.is_auth = false;
   };
 
   getMe() {
     console.log('inside getMe');
+    var token = localStorage.getItem('token');
 
+    var username = this.jwtHelper.decodeToken(token).username;
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(this._me.username), {
+    this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(username), {
           headers: header
     })
     .map(res => res.json()).subscribe(
     data => {
       this._me = new User(data);
       this._me.is_auth = true;
-      console.log('this.me: ', this.me);
+      this.fetchMe();
     },
-    err => console.log('getUser.error: ', err),
+    err => console.log('get user error: ', err),
     () => console.log('get user complete')
     );
 

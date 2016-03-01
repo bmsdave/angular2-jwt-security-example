@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, View, Inject} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ViewEncapsulation} from 'angular2/core';
 import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS, Media, SidenavService} from 'ng2-material/all';
@@ -18,14 +18,11 @@ import { PersonComponent } from './directory/person/person-component';
 import { Activation } from './auth/components/activation/activation-component';
 import { UserList } from './user/components/list/user-list-component';
 import { UserDetail } from './user/components/detail/user-detail-component';
+import { UserMinimal } from './user/components/minimal/user-minimal-component';
 
 @Component({
   selector: 'app-container',
-  providers: [MATERIAL_PROVIDERS],
-  directives: [...ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES],
-  styles: [require('../assets/css/index.scss')],
-  encapsulation: ViewEncapsulation.None,
-  template: require('./app.html')
+  providers: [MATERIAL_PROVIDERS]
 })
 @RouteConfig([
   { path: '/',                          component: Base,       name: 'Base' },
@@ -40,36 +37,44 @@ import { UserDetail } from './user/components/detail/user-detail-component';
   { path: '/signup',                    component: Signup,     name: 'Signup' },
   { path: '/activate/:activation_key',  component: Activation, name: 'Activation' },
 ])
+@View({
+  directives: [
+    ...ROUTER_DIRECTIVES,
+    MATERIAL_DIRECTIVES,
+    Login,
+    Signup,
+    UserMinimal
+    ],
+  styles: [require('../assets/css/index.scss')],
+  template: require('./app.html'),
+  encapsulation: ViewEncapsulation.None
+})
 export class App {
 
   angularclassLogo = '';
   name = 'KRONOS ERP';
   url = '';
-  me: User;
 
+  me: User = new User({ username: 'UNKNOWN' });
   constructor(
-      private AuthService: AuthService,
-      private router: Router,
+      @Inject(AuthService) private AuthService,
+      public router: Router,
       public sidenav: SidenavService
     ) {
-    AuthService.me.subscribe(me => this.me = me);
-    AuthService.fetchMe();
   }
 
   ngOnInit() {
+    this.AuthService.me.subscribe(me => this.me = me);
+    this.AuthService.fetchMe();
+    console.log('ngOnInit app');
     if (this.AuthService.getJwt()) {
       this.AuthService.getMe();
-    }
+    };
   }
 
   isAuth() {
-    return this.AuthService.isAuth();
-  }
-
-  logout() {
-    console.log('logout succes');
-    this.AuthService.logout();
-    this.router.navigate(['Login']);
+    var token = localStorage.getItem('token');
+    return token != null;
   }
 
   hasMedia(breakSize: string): boolean {

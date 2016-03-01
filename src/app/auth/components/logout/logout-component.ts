@@ -14,7 +14,9 @@ export class Logout {
     private authService: AuthService,
     private router: Router
     ) {
-    this.authService = authService;
+  }
+
+  ngOnInit() {
     this.authService.logout();
     this.router.navigate(['Login']);
   }

@@ -15,25 +15,25 @@ import { User } from '../../../user/user';
 
 export class Login {
 
-  me: User;
+  me: User = new User({ username: null });
 
   constructor(
     private authService: AuthService,
     private router: Router
     ) {
-    authService.me.subscribe(me => this.me = me);
-    authService.fetchMe();
   }
 
   login() {
     console.log('inside login.ts function');
-
     this.authService.login(this.me);
   }
 
   ngOnInit() {
-    if (this.authService.isAuth()) {
+    this.authService.me.subscribe(me => this.me = me);
+    this.authService.fetchMe();
+    if (this.me.is_auth) {
       this.router.navigate(['Base']);
+      this.authService.fetchMe();
     }
   }
 }
