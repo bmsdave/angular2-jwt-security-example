@@ -63,6 +63,7 @@ export class AuthService {
       this._me.is_auth = true;
       this.getMe();
       console.log('this.me: ', this.me);
+      this._me.is_auth = true;
     },
     err => console.log('getUser.error: ', err),
     () => console.log('get user complete')
