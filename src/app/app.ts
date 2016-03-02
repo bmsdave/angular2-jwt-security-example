@@ -56,14 +56,20 @@ export class App {
   url = '';
 
   me: User = new User({ username: 'UNKNOWN' });
-
   constructor(
-      private AuthService: AuthService,
+      @Inject(AuthService) private AuthService,
       public router: Router,
-      public sidenav: SidenavService) {}
+      public sidenav: SidenavService
+    ) {
+  }
 
   ngOnInit() {
     this.AuthService.me.subscribe(me => this.me = me);
+    this.AuthService.fetchMe();
+    console.log('ngOnInit app');
+    if (this.AuthService.getJwt()) {
+      this.AuthService.getMe();
+    };
   }
 
   isAuth() {

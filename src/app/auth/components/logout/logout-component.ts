@@ -18,7 +18,6 @@ export class Logout {
 
   ngOnInit() {
     this.authService.logout();
-    this.authService.isAuth();
     this.router.navigate(['Login']);
   }
 
