@@ -26,15 +26,15 @@ export class Activation {
   }
 
   ngOnInit() {
-    this.authService.activate(this.activation_key)
-      .subscribe(
-        res => {
-          this.router.navigate(['Login']);
-        },
-        err => {
-          this.activation_success = false;
-        }
-      );
+    // this.authService.activate(this.activation_key)
+    //   .subscribe(
+    //     res => {
+    //       this.router.navigate(['Login']);
+    //     },
+    //     err => {
+    //       this.activation_success = false;
+    //     }
+    //   );
   }
 
 }

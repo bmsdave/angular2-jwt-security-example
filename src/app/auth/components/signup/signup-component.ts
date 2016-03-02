@@ -14,13 +14,12 @@ import { User } from '../../../user/user';
 
 export class Signup {
 
-  me: User = new User({ username: null });
+  me: User;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {
-    authService.me.subscribe(me => this.me = me);
   }
 
   signup() {
@@ -31,10 +30,11 @@ export class Signup {
   ngOnInit() {
     this.authService.me.subscribe(me => this.me = me);
     this.authService.fetchMe();
-    if (this.me.is_auth) {
-      this.router.navigate(['Base']);
-      this.authService.fetchMe();
-    }
+    this.authService.isAuth();
+    // if (this.me.is_auth) {
+    //   this.router.navigate(['Base']);
+    //   this.authService.fetchMe();
+    // }
   }
 
 }
