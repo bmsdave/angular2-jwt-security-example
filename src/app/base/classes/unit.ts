@@ -8,6 +8,11 @@ export class Unit implements IUnit {
   public parent: any = null;
   public enterprise: Enterprise = new Enterprise();
 
-  constructor() { };
+  constructor(unit: IUnit) {
+    this.id = unit.id;
+    this.title = unit.title;
+    this.parent = unit.parent;
+    this.enterprise = unit.enterprise;
+  };
 
 }

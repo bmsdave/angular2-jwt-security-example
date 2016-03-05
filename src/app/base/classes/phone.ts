@@ -8,6 +8,12 @@ export class Phone implements IPhone {
   public area_code: number = null;
   public number: string = null;
 
-  constructor() { };
+  constructor(phone: IPhone) {
+    this.id = phone.id;
+    this.cat = phone.cat;
+    this.country_code = phone.country_code;
+    this.area_code = phone.area_code;
+    this.number = phone.number;
+  };
 
 }

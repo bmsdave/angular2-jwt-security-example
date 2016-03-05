@@ -5,6 +5,7 @@ import { Phone } from './phone';
 
 export class Person implements IPerson {
 
+  public id: number = null;
   public user: number = null;
   public first_name: string = null;
   public last_name: string = null;
@@ -16,6 +17,14 @@ export class Person implements IPerson {
   public positions: Position[] = [new Position()];
   public phones: Phone[] = [new Phone()];
 
-  constructor() { };
+  constructor(person: IPerson) {
+    this.user = person.user;
+    this.first_name = person.first_name;
+    this.last_name = person.last_name;
+    this.mid_name = person.mid_name;
+    this.date_of_birth = person.date_of_birth;
+    this.sex = person.sex;
+    this.bio = person.bio;
+  };
 
 }
