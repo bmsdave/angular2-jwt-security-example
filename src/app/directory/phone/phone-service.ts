@@ -3,47 +3,47 @@ import {Observable} from 'rxjs/Observable';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
-import {Person} from '../../base/classes/person';
+import {Phone} from '../../base/classes/phone';
 
 
 // TODO: refactor setDefaultTask
 
 @Injectable()
-export class PersonService {
+export class PhoneService {
 
   public baseUrl = '/';
-  public person: Observable<Person>;
+  public phone: Observable<Phone>;
 
-  private _personObserver: any;
-  private _person = Person;
+  private _phoneObserver: any;
+  private _phone = Phone;
 
   constructor(
     private http: Http,
     private router: Router,
     private authHttp: AuthHttp
   ) {
-    this.retrievePerson();
+    this.retrievePhones();
 
-    this.person = new Observable(observer =>
-      this._person = observer);
+    this.phone = new Observable(observer =>
+      this._phone = observer);
   }
 
-  retrievePerson() {
-    console.log('Retrieve Person');
+  retrievePhones() {
+    console.log('Retrieve Phones');
 
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/person/', {
+    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/phones/', {
         headers: header
       })
       .map(res => res.json()).subscribe(
         data => {
           console.log(data);
-          this._person = new Person(data);
+          this._phone = new Phone(data);
         },
-        err => console.log('getPerson.error: ', err),
-        () => console.log('get person complete')
+        err => console.log('getPhone.error: ', err),
+        () => console.log('get phone complete')
       );
   };
 

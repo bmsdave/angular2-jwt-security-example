@@ -3,47 +3,47 @@ import {Observable} from 'rxjs/Observable';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
-import {Person} from '../../base/classes/person';
+import {EMail} from '../../base/classes/email';
 
 
 // TODO: refactor setDefaultTask
 
 @Injectable()
-export class PersonService {
+export class EmailService {
 
   public baseUrl = '/';
-  public person: Observable<Person>;
+  public email: Observable<EMail>;
 
-  private _personObserver: any;
-  private _person = Person;
+  private _emailObserver: any;
+  private _email = EMail;
 
   constructor(
     private http: Http,
     private router: Router,
     private authHttp: AuthHttp
   ) {
-    this.retrievePerson();
+    this.retrieveEmails();
 
-    this.person = new Observable(observer =>
-      this._person = observer);
+    this.email = new Observable(observer =>
+      this._email = observer);
   }
 
-  retrievePerson() {
-    console.log('Retrieve Person');
+  retrieveEmails() {
+    console.log('Retrieve Email');
 
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/person/', {
+    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/email/', {
         headers: header
       })
       .map(res => res.json()).subscribe(
         data => {
           console.log(data);
-          this._person = new Person(data);
+          this._email= new EMail(data);
         },
-        err => console.log('getPerson.error: ', err),
-        () => console.log('get person complete')
+        err => console.log('getEmail.error: ', err),
+        () => console.log('get email complete')
       );
   };
 

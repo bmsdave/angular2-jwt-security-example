@@ -7,7 +7,7 @@ export class Position implements IPosition {
   public title: string = null;
   public since: string = null;
   public until: any = null;
-  public unit: Unit = new Unit();
+  public unit: Unit;
 
   constructor(position: IPosition) {
     this.id = position.id;

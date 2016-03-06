@@ -3,47 +3,47 @@ import {Observable} from 'rxjs/Observable';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
-import {Person} from '../../base/classes/person';
+import {Unit} from '../../base/classes/unit';
 
 
 // TODO: refactor setDefaultTask
 
 @Injectable()
-export class PersonService {
+export class UnitService {
 
   public baseUrl = '/';
-  public person: Observable<Person>;
+  public unit: Observable<Unit>;
 
-  private _personObserver: any;
-  private _person = Person;
+  private _unitObserver: any;
+  private _unit = Unit;
 
   constructor(
     private http: Http,
     private router: Router,
     private authHttp: AuthHttp
   ) {
-    this.retrievePerson();
+    this.retrieveUnit();
 
-    this.person = new Observable(observer =>
-      this._person = observer);
+    this.unit = new Observable(observer =>
+      this._unit = observer);
   }
 
-  retrievePerson() {
+  retrieveUnit() {
     console.log('Retrieve Person');
 
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/person/', {
+    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/enterprise/', {
         headers: header
       })
       .map(res => res.json()).subscribe(
         data => {
           console.log(data);
-          this._person = new Person(data);
+          this._unit = new Unit(data);
         },
-        err => console.log('getPerson.error: ', err),
-        () => console.log('get person complete')
+        err => console.log('getEnterprise.error: ', err),
+        () => console.log('get enterprise complete')
       );
   };
 

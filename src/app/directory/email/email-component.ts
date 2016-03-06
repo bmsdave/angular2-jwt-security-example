@@ -1,8 +1,9 @@
-import {Component} from 'angular2/core';
+import {Component, View, Inject} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import { EMail } from '../../base/classes/email';
+import { EmailService } from './email-service'
 
 @Component({
   selector: 'email',
@@ -15,8 +16,8 @@ export class EmailComponent {
 
   public email: EMail;
 
-  constructor(email: EMail) {
-    this.email = new EMail();
+  constructor(@Inject(EmailService) private EMailService) {
+    EMailService.email.subscribe(newEMail => this.email = newEMail);
   }
 
 }

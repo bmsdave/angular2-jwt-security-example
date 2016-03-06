@@ -1,8 +1,9 @@
-import {Component} from 'angular2/core';
+import {Component, View, Inject} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import { Position } from '../../base/classes/position';
+import { PositionService } from './position-service';
 
 @Component({
   selector: 'position',
@@ -15,8 +16,8 @@ export class PositionComponent {
 
   public position: Position;
 
-  constructor(position: Position) {
-    this.position = new Position();
+  constructor(@Inject(PositionService) private PositionService) {
+    PositionService.position.subscribe(newPosition => this.position = newPosition);
   }
 
 }

@@ -1,4 +1,4 @@
-import { IPerson } from '../interfaces/interfaces';
+import { IPerson, IEMail, IPosition, IPhone } from '../interfaces/interfaces';
 import { EMail } from './email';
 import { Position } from './position';
 import { Phone } from './phone';
@@ -13,9 +13,9 @@ export class Person implements IPerson {
   public date_of_birth: string = null;
   public sex: string = null;
   public bio: string = null;
-  public emails: EMail[] = [new EMail()];
-  public positions: Position[] = [new Position()];
-  public phones: Phone[] = [new Phone()];
+  public emails: EMail[];
+  public positions: Position[];
+  public phones: Phone[];
 
   constructor(person: IPerson) {
     this.user = person.user;

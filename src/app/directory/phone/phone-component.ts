@@ -1,8 +1,9 @@
-import {Component} from 'angular2/core';
+import {Component, View, Inject} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import { Phone } from '../../base/classes/phone';
+import { PhoneService } from './phone-service'
 
 @Component({
   selector: 'phone',
@@ -15,8 +16,8 @@ export class PhoneComponent {
 
   public phone: Phone;
 
-  constructor(phone: Phone) {
-    this.phone = new Phone();
+  constructor(@Inject(PhoneService) private PhoneService) {
+    PhoneService.phone.subscribe(newPhone => this.phone = newPhone);
   }
 
 }
