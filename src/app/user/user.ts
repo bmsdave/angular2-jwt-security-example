@@ -1,4 +1,4 @@
-import { IUser } from '../base/interfaces/interfaces';
+import { IUser, IPerson } from '../base/interfaces/interfaces';
 import { Person } from '../base/classes/person';
 
 export class User implements IUser {
@@ -6,7 +6,7 @@ export class User implements IUser {
   id: number = null;
   username: string = null;
   password: string = null;
-  person: Person = new Person();
+  person: Person;
   token: string = null;
   is_auth: boolean = false;
 

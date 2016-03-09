@@ -6,6 +6,10 @@ export class EMail implements IEMail {
   public cat: string = null;
   public body: string = null;
 
-  constructor() { };
+  constructor(email: IEMail) {
+    this.id = email.id;
+    this.cat = email.cat;
+    this.body = email.body;
+  };
 
 }
