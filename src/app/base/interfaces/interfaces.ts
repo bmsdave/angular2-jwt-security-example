@@ -55,4 +55,5 @@ export interface IUser {
   username: string;
   password?: string;
   person?: IPerson;
+  is_auth: boolean;
 }

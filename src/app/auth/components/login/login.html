@@ -3,13 +3,19 @@
   <md-toolbar class="md-hero" layout="row" layout-align="center center" layout-align-gt-md="end end">
     <div class="md-toolbar-tools">
       <h1>Sign In</h1>
-      <h1>{{me | json }}</h1>
+      <br>
+
     </div>
     <i class="secret-project" md-icon>person</i>
   </md-toolbar>
 
   <md-content layout-padding>
     <div>
+      <h1>{{me2.username}}</h1>
+      <br>
+      <h1>{{me2.is_auth}}</h1>
+      <br>
+      <button  (click)="fetchMe()" >fetch me</button>
       <form name="signInForm" (submit)="login()">
 
         <div layout-gt-sm="row">

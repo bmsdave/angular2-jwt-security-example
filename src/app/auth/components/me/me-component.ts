@@ -21,7 +21,7 @@ export class Me {
     private authService: AuthService,
     private router: Router
     ) {
-    authService.me.subscribe(me => this.me = me);
+    authService.me$.subscribe(me => this.me = new User(me));
     authService.fetchMe();
   }
 

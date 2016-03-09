@@ -15,7 +15,7 @@ import { Router, RouterLink } from 'angular2/router';
 export class UserMinimal {
   @Input() me;
 
-  user: User = new User({username: null});
+  user: User;
 
 
 

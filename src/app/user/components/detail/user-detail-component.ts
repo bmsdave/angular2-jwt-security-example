@@ -23,7 +23,8 @@ export class UserDetail {
     this.user = {
       id: 1,
       username: 'Demo',
-      person: null
+      person: null,
+      is_auth: false
     };
   }
 

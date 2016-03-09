@@ -11,24 +11,25 @@ import { User } from '../user/user';
 @Injectable()
 export class AuthService {
 
-  public me: Observable<User>;
+  public me$: Observable<IUser>;
 
-  public _meObserver: any;
-  public _me: User = new User({id: null, username: null});
+  private _meObserver: any;
+  private _me: IUser;
+  
+  public counter = 0;
 
   jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http, private authHttp: AuthHttp, private router: Router) {
-
-
-  this.me = new Observable(observer =>
-      this._meObserver = observer).share();;
-
+    this.me$ = new Observable(observer => this._meObserver = observer).share();
+    this._me = {id: null, username: 'first AuthService', is_auth: false };
   }
 
   fetchMe() {
-      console.log('fetchMe!!!! ', this._me);
+      console.log('in AuthService.fetchMe', this._me);
       this._meObserver.next(this._me);
+      this.counter++;
+      console.log('COUNTER: ', this.counter);
   }
 
   saveJwt(jwt) {
@@ -64,22 +65,25 @@ export class AuthService {
     console.log('inside login');
     var header = new Headers();
     header.append('Content-Type', 'application/json');
-
-    this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/', JSON.stringify(user), {
-      headers: header
-    })
-    .map(res => res.json()).subscribe(
-    data => {
-      if (data.token){
-        this.saveJwt(data.token);
-        this._me.is_auth = true;
-        this.getMe();
-        this.router.navigate(['Base']);
-      }
-    },
-    err => console.log('login user error: ', err),
-    () => console.log('login user complete')
-    );
+    user.is_auth = true;
+    this._me = {id: user.id, username: user.username, is_auth: false};
+    console.log(this._me);
+    this._meObserver.next(this._me);
+    // this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/', JSON.stringify(user), {
+    //   headers: header
+    // })
+    // .map(res => res.json()).subscribe(
+    // data => {
+    //   if (data.token){
+    //     this.saveJwt(data.token);
+    //     this._me.is_auth = true;
+    //     this.getMe();
+    //     this.router.navigate(['Base']);
+    //   }
+    // },
+    // err => console.log('login user error: ', err),
+    // () => console.log('login user complete')
+    // );
   };
 
   activate(activation_key: string) {

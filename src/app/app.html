@@ -1,21 +1,46 @@
 <div layout="column">
+
   <md-sidenav-container layout="row" flex>
     <md-sidenav name="left" [style]="hasMedia('gt-sm') ? 'side' : 'over'">
       <md-toolbar class="md-theme-indigo">
         <!-- <h1 class="md-toolbar-tools">Menu</h1> -->
         <user-minimal [me] ="me"></user-minimal>
+      <br>
+      <h1>{{me.username}}</h1>
+      <br>
+      <h1>{{me.is_auth}}</h1>
+      <br>
+      <button  (click)="fetchMe()" >fetch me</button>
       </md-toolbar>
       <md-content layout-padding>
-        <p >
-          <button *ngIf="me.is_auth" md-button [routerLink]="['Logout']">Logout</button></p>
-        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Login']">Login</button></p>
+        <!--<p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Logout']">Logout</button></p>
+        --><p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Login']">Login</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Login']">Login</button></p>
+        <!--
         <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Signup']">Signup</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Base']">Base</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['UserList']">UserList</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Person']">Person</button></p>
+        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Base']">Base</button></p>
+        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['UserList']">UserList</button></p>
+        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Person']">Person</button></p>
+        <hr>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Logout']">!Logout</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Login']">!Login</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Signup']">!Signup</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Base']">!Base</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['UserList']">!UserList</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Person']">!Person</button></p>-->
       </md-content>
     </md-sidenav>
+  
     <md-content flex layout-padding>
+            
+      <hr />
+            <first-component></first-component>
+      
+      <hr />
+      
+      <second-component></second-component>
+      <hr />
+    
       <router-outlet></router-outlet>
     </md-content>
   </md-sidenav-container>

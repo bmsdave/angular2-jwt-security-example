@@ -20,22 +20,25 @@ import { UserList } from './user/components/list/user-list-component';
 import { UserDetail } from './user/components/detail/user-detail-component';
 import { UserMinimal } from './user/components/minimal/user-minimal-component';
 
+import {FirstComponent} from './my/my1-component';
+import {SecondComponent} from './my/my2-component';
+
 @Component({
   selector: 'app-container',
   providers: [MATERIAL_PROVIDERS]
 })
 @RouteConfig([
   { path: '/',                          component: Base,       name: 'Base' },
-  { path: '/users',                     component: UserList,   name: 'UserList' },
-  { path: '/user/:username',            component: UserDetail, name: 'UserDetail' },
+//   { path: '/users',                     component: UserList,   name: 'UserList' },
+//   { path: '/user/:username',            component: UserDetail, name: 'UserDetail' },
 
-  { path: '/person',                    component: PersonComponent,     name: 'Person' },
+//   { path: '/person',                    component: PersonComponent,     name: 'Person' },
 
-  { path: '/me',                        component: Me,         name: 'Me' },
+//   { path: '/me',                        component: Me,         name: 'Me' },
   { path: '/login',                     component: Login,      name: 'Login' },
-  { path: '/logout',                    component: Logout,     name: 'Logout' },
-  { path: '/signup',                    component: Signup,     name: 'Signup' },
-  { path: '/activate/:activation_key',  component: Activation, name: 'Activation' },
+//   { path: '/logout',                    component: Logout,     name: 'Logout' },
+//   { path: '/signup',                    component: Signup,     name: 'Signup' },
+//   { path: '/activate/:activation_key',  component: Activation, name: 'Activation' },
 ])
 @View({
   directives: [
@@ -43,7 +46,8 @@ import { UserMinimal } from './user/components/minimal/user-minimal-component';
     MATERIAL_DIRECTIVES,
     Login,
     Signup,
-    UserMinimal
+    UserMinimal,
+    FirstComponent, SecondComponent
     ],
   styles: [require('../assets/css/index.scss')],
   template: require('./app.html'),
@@ -55,21 +59,28 @@ export class App {
   name = 'KRONOS ERP';
   url = '';
 
-  me: User = new User({ username: 'UNKNOWN' });
+  me: User = new User({id: null, username: 'first App', is_auth: false});
+  
   constructor(
-      @Inject(AuthService) private AuthService,
+      private AuthService: AuthService,
       public router: Router,
       public sidenav: SidenavService
     ) {
+    console.log('in App.constructor', this.me);
   }
 
   ngOnInit() {
-    this.AuthService.me.subscribe(me => this.me = me);
+    console.log('in App.ngOnInit');
+    this.AuthService.me$.subscribe( me => {
+        console.log('in App.subscribe', me);
+        this.me = new User(me);
+    });
+    
     this.AuthService.fetchMe();
-    console.log('ngOnInit app');
-    if (this.AuthService.getJwt()) {
-      this.AuthService.getMe();
-    };
+  }
+
+  fetchMe(){
+      this.AuthService.fetchMe();
   }
 
   isAuth() {
