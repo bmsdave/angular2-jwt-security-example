@@ -15,7 +15,7 @@ export class PositionService {
   public position: Observable<Position>;
 
   private _positionObserver: any;
-  private _position = Position;
+  private _position: Position;
 
   constructor(
     private http: Http,

@@ -7,8 +7,6 @@ import {AuthHttp, AuthConfig} from 'angular2-jwt';
 
 import {AuthService} from './app/auth/auth-service';
 
-import {MyService} from './app/my/my-service';
-
 document.addEventListener('DOMContentLoaded', function main() {
   bootstrap(App, [
     ('production' === process.env.ENV ? [] : ELEMENT_PROBE_PROVIDERS),
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function main() {
     }),
     AuthHttp,
     AuthService,
-    MyService,
     ConnectionBackend
   ])
     .catch(err => console.error(err));

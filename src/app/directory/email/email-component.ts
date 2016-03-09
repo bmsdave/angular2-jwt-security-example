@@ -3,7 +3,7 @@ import {Router} from 'angular2/router';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import { EMail } from '../../base/classes/email';
-import { EmailService } from './email-service'
+import { EMailService } from './email-service'
 
 @Component({
   selector: 'email',
@@ -16,7 +16,7 @@ export class EmailComponent {
 
   public email: EMail;
 
-  constructor(@Inject(EmailService) private EMailService) {
+  constructor(@Inject(EMailService) private EMailService) {
     EMailService.email.subscribe(newEMail => this.email = newEMail);
   }
 

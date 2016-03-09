@@ -15,7 +15,7 @@ export class EnterpriseService {
   public enterprise: Observable<Enterprise>;
 
   private _enterpriseObserver: any;
-  private _enterprise = Enterprise;
+  private _enterprise: Enterprise;
 
   constructor(
     private http: Http,

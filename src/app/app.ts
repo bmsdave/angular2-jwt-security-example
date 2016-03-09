@@ -20,25 +20,22 @@ import { UserList } from './user/components/list/user-list-component';
 import { UserDetail } from './user/components/detail/user-detail-component';
 import { UserMinimal } from './user/components/minimal/user-minimal-component';
 
-import {FirstComponent} from './my/my1-component';
-import {SecondComponent} from './my/my2-component';
-
 @Component({
   selector: 'app-container',
   providers: [MATERIAL_PROVIDERS]
 })
 @RouteConfig([
   { path: '/',                          component: Base,       name: 'Base' },
-//   { path: '/users',                     component: UserList,   name: 'UserList' },
-//   { path: '/user/:username',            component: UserDetail, name: 'UserDetail' },
+  { path: '/users',                     component: UserList,   name: 'UserList' },
+  { path: '/user/:username',            component: UserDetail, name: 'UserDetail' },
 
-//   { path: '/person',                    component: PersonComponent,     name: 'Person' },
+  { path: '/person',                    component: PersonComponent,     name: 'Person' },
 
-//   { path: '/me',                        component: Me,         name: 'Me' },
+  { path: '/me',                        component: Me,         name: 'Me' },
   { path: '/login',                     component: Login,      name: 'Login' },
-//   { path: '/logout',                    component: Logout,     name: 'Logout' },
-//   { path: '/signup',                    component: Signup,     name: 'Signup' },
-//   { path: '/activate/:activation_key',  component: Activation, name: 'Activation' },
+  { path: '/logout',                    component: Logout,     name: 'Logout' },
+  { path: '/signup',                    component: Signup,     name: 'Signup' },
+  { path: '/activate/:activation_key',  component: Activation, name: 'Activation' },
 ])
 @View({
   directives: [
@@ -46,8 +43,7 @@ import {SecondComponent} from './my/my2-component';
     MATERIAL_DIRECTIVES,
     Login,
     Signup,
-    UserMinimal,
-    FirstComponent, SecondComponent
+    UserMinimal
     ],
   styles: [require('../assets/css/index.scss')],
   template: require('./app.html'),

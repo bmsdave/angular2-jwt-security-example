@@ -15,7 +15,7 @@ export class PhoneService {
   public phone: Observable<Phone>;
 
   private _phoneObserver: any;
-  private _phone = Phone;
+  private _phone: Phone;
 
   constructor(
     private http: Http,

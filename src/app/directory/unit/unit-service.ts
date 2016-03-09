@@ -15,7 +15,7 @@ export class UnitService {
   public unit: Observable<Unit>;
 
   private _unitObserver: any;
-  private _unit = Unit;
+  private _unit: Unit;
 
   constructor(
     private http: Http,

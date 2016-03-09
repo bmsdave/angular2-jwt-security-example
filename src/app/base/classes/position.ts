@@ -14,7 +14,7 @@ export class Position implements IPosition {
     this.title = position.title;
     this.since = position.since;
     this.until = position.until;
-    this.unit = position.unit;
+    this.unit = new Unit(position.unit);
   };
 
 }

@@ -12,7 +12,7 @@ export class Unit implements IUnit {
     this.id = unit.id;
     this.title = unit.title;
     this.parent = unit.parent;
-    this.enterprise = unit.enterprise;
+    this.enterprise = new Enterprise(unit.enterprise);
   };
 
 }

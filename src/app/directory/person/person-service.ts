@@ -15,7 +15,7 @@ export class PersonService {
   public person: Observable<Person>;
 
   private _personObserver: any;
-  private _person = Person;
+  private _person: Person;
 
   constructor(
     private http: Http,
