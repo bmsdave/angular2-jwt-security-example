@@ -1,50 +1,93 @@
 import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
-import {Person} from '../../base/classes/person';
+import {IPerson} from '../../base/interfaces/interfaces';
 
-
-// TODO: refactor setDefaultTask
 
 @Injectable()
 export class PersonService {
 
-  public baseUrl = '/';
-  public person: Observable<Person>;
+  public baseUrl = 'http://kl10ch.app-showcase.corelab.pro/api';
+  public persons: Observable<IPerson[]>;
+  public selectedPerson: Observable<IPerson>;
 
-  private _personObserver: any;
-  private _person: Person;
+  private _personsObserver: Observer<IPerson[]>;
+  private _persons: IPerson[];
+  private _selectedPersonObserver: Observer<IPerson>;
 
   constructor(
     private http: Http,
     private router: Router,
     private authHttp: AuthHttp
   ) {
-    this.retrievePerson();
+    this.getPersons();
 
-    this.person = new Observable(observer =>
-      this._person = observer);
+    this.selectedPerson = new Observable(observer =>
+      this._selectedPersonObserver = observer);
+
+    this.persons = new Observable(observer =>
+      this._personsObserver = observer);
   }
 
-  retrievePerson() {
-    console.log('Retrieve Person');
+  getPersons() {
+    console.log('getpersons');
 
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
-    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/directory/person/', {
+    return this.authHttp.get('', {
         headers: header
       })
       .map(res => res.json()).subscribe(
         data => {
           console.log(data);
-          this._person = new Person(data);
+          for ( var item in data ) {
+            this._persons.push(item);
+          }
         },
-        err => console.log('getPerson.error: ', err),
+        err => console.log('getperson.error: ', err),
         () => console.log('get person complete')
       );
   };
+
+  fetchPersons() {
+    this._personsObserver.next(this._persons);
+  }
+
+  selectPerson(person) {
+    this._selectedPersonObserver.next(person);
+  }
+
+  createPerson(person: IPerson) {
+    this.authHttp.post('/api/person', JSON.stringify(person))
+      .map(response => response.json()).subscribe(data => {
+      this._persons.push(data);
+      this._personsObserver.next(this._persons);
+    }, error => console.log('Could not create person.'));
+  }
+
+  updatePerson(person: IPerson) {
+    this.http.put(`/directory/person/${person.id}`, JSON.stringify(person))
+      .map(response => response.json()).subscribe(data => {
+      this._persons.forEach((person, i) => {
+        if (person.id === data.id) { this._persons[i] = data; }
+      });
+
+      this._personsObserver.next(this._persons);
+    }, error => console.log('Could not update person.'));
+  }
+
+  deletePerson(personId: number) {
+    this.http.delete(`/directory/person/${personId}`).subscribe(response => {
+      this._persons.forEach((e, index) => {
+        if (e.id === personId) { this._persons.splice(index, 1); }
+      });
+
+      this._personsObserver.next(this._persons);
+    }, error => console.log('Could not delete person.'));
+  }
 
 }
