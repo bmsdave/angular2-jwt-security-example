@@ -1,5 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
@@ -16,9 +17,9 @@ export class UserService {
     public users: Observable<User>;
     public selectedUser: Observable<User>;
 
-    private _usersObserver: any;
-    private _users: User[] = [];
-    private _selectedUserObserver: any;
+    private _usersObserver: Observer<User[]>;
+    private _users:  User[] = [];
+    private _selectedUserObserver: Observer<User>;
 
     constructor(
       private http: Http,
