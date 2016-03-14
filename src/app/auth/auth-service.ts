@@ -14,31 +14,30 @@ export class AuthService {
   public me$: Observable<IUser>;
 
   private _meObserver: any;
-  private _me: IUser;
-  
-  public counter = 0;
+  private _me: IUser = { id: null, username: null, is_auth: false };
 
   jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http, private authHttp: AuthHttp, private router: Router) {
     this.me$ = new Observable(observer => this._meObserver = observer).share();
-    this._me = {id: null, username: 'first AuthService', is_auth: false };
   }
 
-  fetchMe() {
-      console.log('in AuthService.fetchMe', this._me);
-      this._meObserver.next(this._me);
-      this.counter++;
-      console.log('COUNTER: ', this.counter);
+  next() {
+    console.log("AuthService.next: ", this._me);
+    this._meObserver.next(this._me);
   }
 
+  // JWT logic
   saveJwt(jwt) {
     if (jwt) {
-      localStorage.setItem('token', jwt);
+     localStorage.setItem('token', jwt);
+    } else {
+     console.log("AuthService.saveJwt: jwt is NULL");
     }
   };
 
   getJwt() {
+    console.log("AuthService.getJwt: ", localStorage.getItem('token'));
     return localStorage.getItem('token');
   };
 
@@ -46,6 +45,7 @@ export class AuthService {
     var token = localStorage.getItem('token');
 
     console.log(
+      "AuthService.getJwtData: ",
       this.jwtHelper.decodeToken(token),
       this.jwtHelper.getTokenExpirationDate(token),
       this.jwtHelper.isTokenExpired(token)
@@ -53,72 +53,60 @@ export class AuthService {
   };
 
   deleteJwt() {
+    console.log("AuthService.deleteJwt: ", localStorage.getItem('token'));
     localStorage.removeItem('token');
   };
 
+  // ME logic
   isAuth() {
-    console.log('check isAuth');
+    console.log('AuthService.isAuth: ', this._me.is_auth);
     return this._me.is_auth;
   };
 
-  login(user: User) {
-    console.log('inside login');
+  login(user: User) : boolean{
+    console.log('AuthService.login: ', this._me);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
     user.is_auth = true;
-    this._me = {id: user.id, username: user.username, is_auth: false};
-    console.log(this._me);
+    this._me = {id: user.id, username: user.username, is_auth: user.is_auth};
     this._meObserver.next(this._me);
-    // this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/', JSON.stringify(user), {
-    //   headers: header
-    // })
-    // .map(res => res.json()).subscribe(
-    // data => {
-    //   if (data.token){
-    //     this.saveJwt(data.token);
-    //     this._me.is_auth = true;
-    //     this.getMe();
-    //     this.router.navigate(['Base']);
-    //   }
-    // },
-    // err => console.log('login user error: ', err),
-    // () => console.log('login user complete')
-    // );
+    console.log('AuthService.login: ', this._me);
+    return true;
   };
 
   activate(activation_key: string) {
-    console.log('inside authService.activate');
+    console.log('AuthService.activate: ', activation_key);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
-
-    return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/auth/activate/'.concat(activation_key), {
-    headers: header
-    }).map(res => res.text());
-
+    return this.authHttp
+      .get('http://kl10ch.app-showcase.corelab.pro/api/auth/activate/'.concat(activation_key), {
+        headers: header
+      }).map(res => res.text());
   }
 
-  signup(user: User) {
-    console.log('inside authService.signup');
-
+  signup(user: User) : boolean {
+    console.log('AuthService.signup: ', user);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
-
-    return this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signup/', JSON.stringify(user), {
-      headers: header
-    })
-      .map(res => res.json());
+    user.is_auth = true;
+    this._me = {id: user.id, username: user.username, is_auth: user.is_auth};
+    this._meObserver.next(this._me);
+    return true;
   };
 
   logout() {
+    console.log('AuthService.logout: ');
     this.deleteJwt();
-    this._me.is_auth = false;
+    this._me = {id: null, username: null, is_auth: false};
+    this._meObserver.next(this._me);
   };
 
   getMe() {
-    console.log('inside getMe');
-    var token = localStorage.getItem('token');
+    console.log('AuthService.getMe: ');
 
+    var token = localStorage.getItem('token');
     var username = this.jwtHelper.decodeToken(token).username;
+
     var header = new Headers();
     header.append('Content-Type', 'application/json');
 
@@ -129,12 +117,10 @@ export class AuthService {
     data => {
       this._me = new User(data);
       this._me.is_auth = true;
-      this.fetchMe();
+      this.next();
     },
     err => console.log('get user error: ', err),
-    () => console.log('get user complete')
+    () => console.log('AuthService.getMe is DONE')
     );
-
   };
-
 }

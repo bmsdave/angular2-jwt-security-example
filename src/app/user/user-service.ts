@@ -53,7 +53,7 @@ export class UserService {
           },
           err => console.log('getUser.error: ', err),
           () => console.log('get user complete')
-          );
+      );
     };
 
     fetchUsers() {

@@ -4,8 +4,10 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, PathLocationSt
 import {HTTP_PROVIDERS, ConnectionBackend} from 'angular2/http';
 import {App} from './app/app';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
-
+import {enableProdMode} from 'angular2/core';
 import {AuthService} from './app/auth/auth-service';
+
+enableProdMode();
 
 document.addEventListener('DOMContentLoaded', function main() {
   bootstrap(App, [

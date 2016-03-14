@@ -55,35 +55,21 @@ export class App {
   name = 'KRONOS ERP';
   url = '';
 
-  me: User = new User({id: null, username: 'first App', is_auth: false});
+  me: User = new User({id: null, username: null, is_auth: false});
   
   constructor(
       private AuthService: AuthService,
       public router: Router,
       public sidenav: SidenavService
     ) {
-    console.log('in App.constructor', this.me);
   }
 
   ngOnInit() {
-    console.log('in App.ngOnInit');
-    this.AuthService.me$.subscribe( me => {
-        console.log('in App.subscribe', me);
-        this.me = new User(me);
-    });
-    
-    this.AuthService.fetchMe();
+    this.AuthService.me$.subscribe( me => { this.me = new User(me); });
+    this.AuthService.next();
   }
 
-  fetchMe(){
-      this.AuthService.fetchMe();
-  }
-
-  isAuth() {
-    var token = localStorage.getItem('token');
-    return token != null;
-  }
-
+  // view logic
   hasMedia(breakSize: string): boolean {
     return Media.hasMedia(breakSize);
   }

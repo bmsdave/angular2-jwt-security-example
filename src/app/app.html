@@ -7,19 +7,13 @@
         <user-minimal [me] ="me"></user-minimal>
       </md-toolbar>
       <md-content layout-padding>
-        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Logout']">Logout</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Logout']">Logout</button></p>
         <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Login']">Login</button></p>        
         <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Signup']">Signup</button></p>
-        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Base']">Base</button></p>
-        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['UserList']">UserList</button></p>
-        <p ><button *ngIf="!me.is_auth" md-button [routerLink]="['Person']">Person</button></p>
-        <hr>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Logout']">!Logout</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Login']">!Login</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Signup']">!Signup</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Base']">!Base</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['UserList']">!UserList</button></p>
-        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Person']">!Person</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Base']">Base</button></p>
+        <!--<p ><button *ngIf="me.is_auth" md-button [routerLink]="['UserList']">UserList</button></p>
+        <p ><button *ngIf="me.is_auth" md-button [routerLink]="['Person']">Person</button></p>-->
+
       </md-content>
     </md-sidenav>
   

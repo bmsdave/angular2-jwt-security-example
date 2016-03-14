@@ -15,29 +15,30 @@ import { User } from '../../../user/user';
 export class Login {
 
   me: User = new User({ username: null, is_auth: false });
-  me2: User = new User({ username: null, is_auth: false });
 
   constructor(
-    private AuthService: AuthService,
+    private authService: AuthService,
     private router: Router
     ) {
+    authService.me$.subscribe(me => this.me = new User(me));
   }
 
-  login() {
-    console.log('inside login.ts function');
-    this.AuthService.login(this.me);
-  }
-
-  fetchMe(){
-      this.AuthService.fetchMe();
+  login() {  
+    if (this.authService.login(this.me)){
+      this.router.navigate(['Base']);
+    } else {
+      console.log('Login.login: FAILED');
+    }
   }
 
   ngOnInit() {
-    this.AuthService.me$.subscribe(me => this.me2 = new User(me));
-    this.AuthService.fetchMe();
-    if (this.me.is_auth) {
+    this.authService.me$.subscribe(me => this.me = new User(me));
+    if (this.authService.getJwt()){
+      this.authService.getMe();
       this.router.navigate(['Base']);
-      this.AuthService.fetchMe();
-    }
+    };
   }
+  
+  
+  
 }

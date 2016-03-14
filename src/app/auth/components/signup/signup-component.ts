@@ -4,17 +4,29 @@ import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {AuthService} from '../../auth-service';
 import { User } from '../../../user/user';
+import { Person } from '../../../base/classes/person';
+import { IPerson, IEMail } from '../../../base/interfaces/interfaces';
+
 
 @Component({
   selector: 'signup',
   template: require('./signup.html'),
-  providers: [AuthService],
   directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Signup {
 
   me: User = new User({ username: null, is_auth: false });
+  person: IPerson = {
+    user: null,
+    first_name: null,
+    last_name: null,
+    mid_name: null,
+    date_of_birth: null,
+    sex: null,
+    bio: null  
+  };
+  email: IEMail = { body: null };
 
   constructor(
     private authService: AuthService,
@@ -24,17 +36,20 @@ export class Signup {
   }
 
   signup() {
-    console.log('inside sign.ts function');
-    this.authService.signup(this.me);
+    console.log('Signup.signup: ', this.me);
+    if (this.authService.signup(this.me)){
+      this.router.navigate(['Base']);
+    } else {
+      console.log('Signup.signup: FAILED');
+    }
   }
 
   ngOnInit() {
     this.authService.me$.subscribe(me => this.me = new User(me));
-    this.authService.fetchMe();
-    if (this.me.is_auth) {
+    if (this.authService.getJwt()){
+      this.authService.getMe();
       this.router.navigate(['Base']);
-      this.authService.fetchMe();
-    }
+    };
   }
 
 }

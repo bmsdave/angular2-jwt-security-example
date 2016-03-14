@@ -9,7 +9,6 @@ import { User } from '../../../user/user';
 @Component({
   selector: 'me',
   template: require('./me.html'),
-  providers: [AuthService],
   directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
@@ -22,18 +21,5 @@ export class Me {
     private router: Router
     ) {
     authService.me$.subscribe(me => this.me = new User(me));
-    authService.fetchMe();
-  }
-
-  login() {
-    console.log('inside login.ts function');
-
-    this.authService.login(this.me);
-  }
-
-  ngOnInit() {
-    if (this.authService.isAuth()) {
-      this.router.navigate(['Base']);
-    }
   }
 }

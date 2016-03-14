@@ -4,8 +4,8 @@
 // TODO: описать методы
 
 export interface IEMail {
-  id: number;
-  cat: string;
+  id?: number;
+  cat?: string;
   body: string;
 }
 
@@ -45,9 +45,9 @@ export interface IPerson {
   date_of_birth: string;
   sex: string;
   bio: string;
-  emails: IEMail[];
-  positions: IPosition[];
-  phones: IPhone[];
+  emails?: IEMail[];
+  positions?: IPosition[];
+  phones?: IPhone[];
 }
 
 export interface IUser {
