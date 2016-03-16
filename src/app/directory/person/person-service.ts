@@ -42,9 +42,9 @@ export class PersonService {
         headers: header
       })
       .map(res => res.json()).subscribe(
-        data => {
+        (data) => {
           console.log(data);
-          for ( var item in data ) {
+          for ( var item of data ) {
             this._persons.push(item);
           }
         },

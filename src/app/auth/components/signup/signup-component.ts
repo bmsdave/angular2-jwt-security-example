@@ -18,6 +18,7 @@ export class Signup {
 
   me: User = new User({ username: null, is_auth: false });
   person: IPerson = {
+    id: null,
     user: null,
     first_name: null,
     last_name: null,
