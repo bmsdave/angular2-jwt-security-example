@@ -19,11 +19,11 @@ export class Login {
   constructor(
     private authService: AuthService,
     private router: Router
-    ) {
+  ) {
     authService.me$.subscribe(me => this.me = new User(me));
   }
 
-  login() {  
+  login() {
     if (this.authService.login(this.me)){
       this.router.navigate(['Base']);
     } else {
@@ -38,7 +38,5 @@ export class Login {
       this.router.navigate(['Base']);
     };
   }
-  
-  
-  
+
 }
