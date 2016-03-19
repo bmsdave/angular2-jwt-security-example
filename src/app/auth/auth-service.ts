@@ -30,7 +30,9 @@ export class AuthService {
   // JWT logic
   saveJwt(jwt) {
     if (jwt) {
-     localStorage.setItem('token', jwt);
+      console.log(jwt);
+      localStorage.setItem('token', jwt);
+      //this.token = localStorage.getItem('token');
     } else {
      console.log("AuthService.saveJwt: jwt is NULL");
     }
@@ -67,11 +69,26 @@ export class AuthService {
     console.log('AuthService.login: ', this._me);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
-    user.is_auth = true;
-    this._me = {id: user.id, username: user.username, is_auth: user.is_auth};
-    this._meObserver.next(this._me);
-    console.log('AuthService.login: ', this._me);
-    return true;
+    this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/',
+      JSON.stringify({username: user.username, password: user.password}),
+      {headers: header})
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          if (data.token){
+            this.saveJwt(data.token);
+            user.is_auth = true;
+            this._me = {id: user.id, username: user.username, is_auth: user.is_auth};
+            this._meObserver.next(this._me);
+            console.log('AuthService.login: ', this._me);
+            this.router.navigate(['Base']);
+          }
+        },
+        err => console.log('login user error: ', err),
+        () => console.log('Authentication Complete')
+      );
+
+    return user.is_auth;
   };
 
   activate(activation_key: string) {

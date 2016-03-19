@@ -24,11 +24,15 @@ export class Login {
   }
 
   login() {
-    if (this.authService.login(this.me)){
-      this.router.navigate(['Base']);
-    } else {
-      console.log('Login.login: FAILED');
-    }
+    this.authService.activate(this.me)
+      .subscribe(
+        res => {
+          this.router.navigate(['Base']);
+        },
+        err => {
+          console.log('Login.login: FAILED');
+        }
+      );
   }
 
   ngOnInit() {
