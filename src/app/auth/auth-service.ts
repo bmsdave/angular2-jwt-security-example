@@ -65,13 +65,15 @@ export class AuthService {
     return this._me.is_auth;
   };
 
-  login(user: User) : boolean{
+  login(user: User) {
     console.log('AuthService.login: ', this._me);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
-    this.authHttp.post('http://kl10ch.app-showcase.corelab.pro/api/auth/signin/',
+    this.authHttp.post(
+      'http://kl10ch.app-showcase.corelab.pro/api/auth/signin/',
       JSON.stringify({username: user.username, password: user.password}),
-      {headers: header})
+      {headers: header}
+    )
       .map(res => res.json())
       .subscribe(
         data => {
@@ -87,8 +89,6 @@ export class AuthService {
         err => console.log('login user error: ', err),
         () => console.log('Authentication Complete')
       );
-
-    return user.is_auth;
   };
 
   activate(activation_key: string) {

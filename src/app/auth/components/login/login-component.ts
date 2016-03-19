@@ -24,15 +24,7 @@ export class Login {
   }
 
   login() {
-    this.authService.activate(this.me)
-      .subscribe(
-        res => {
-          this.router.navigate(['Base']);
-        },
-        err => {
-          console.log('Login.login: FAILED');
-        }
-      );
+    this.authService.login(this.me);
   }
 
   ngOnInit() {
