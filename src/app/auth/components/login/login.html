@@ -7,13 +7,13 @@
   </md-toolbar>
   <md-content layout-padding>
     <div>
-      
+
       <h1>{{me.username}}</h1>
       <br>
       <h1>{{me.is_auth}}</h1>
       <br>
 
-      <form name="signInForm" (submit)="login()">
+      <form name="signInForm">
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Login</label>
@@ -26,11 +26,11 @@
             <input md-input [(ngModel)]="me.password" type="password">
           </md-input-container>
         </div>
-        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignIn">
+        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignIn" (click)="login()">
           Login
         </button>
       </form>
-      
+
     </div>
-  </md-content>  
+  </md-content>
 </div>
