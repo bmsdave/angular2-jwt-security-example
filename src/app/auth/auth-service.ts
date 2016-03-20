@@ -20,6 +20,9 @@ export class AuthService {
 
   constructor(private http: Http, private authHttp: AuthHttp, private router: Router) {
     this.me$ = new Observable(observer => this._meObserver = observer).share();
+    if (this.getJwt()) {
+      this.getMe()
+    }
   }
 
   next() {
