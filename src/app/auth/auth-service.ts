@@ -61,8 +61,8 @@ export class AuthService {
 
   // ME logic
   isAuth() {
-    console.log('AuthService.isAuth: ', this._me.is_auth);
-    return this._me.is_auth;
+    console.log('AuthService.isAuth: ', this._me);
+    return this.getJwt();
   };
 
   login(user: User) {
@@ -125,19 +125,22 @@ export class AuthService {
     var username = this.jwtHelper.decodeToken(token).username;
 
     var header = new Headers();
+    console.log('AuthService.isAuth: ', this._me.is_auth);
     header.append('Content-Type', 'application/json');
 
-    this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(username), {
-          headers: header
-    })
-    .map(res => res.json()).subscribe(
-    data => {
-      this._me = new User(data);
-      this._me.is_auth = true;
-      this.next();
-    },
-    err => console.log('get user error: ', err),
-    () => console.log('AuthService.getMe is DONE')
-    );
-  };
+    setTimeout(
+      this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(username), {
+            headers: header
+      })
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          this._me = new User(data);
+          this._me.is_auth = true;
+          this.next();
+        },
+        err => console.log('get user error: ', err),
+        () => console.log('AuthService.getMe is DONE')
+      ), 1000);
+  }
 }
