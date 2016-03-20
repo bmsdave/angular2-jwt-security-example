@@ -9,7 +9,7 @@
 
   <md-content layout-padding>
     <div>
-      <form name="signUpForm" (submit)="signup()">
+      <form name="signUpForm">
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
@@ -64,7 +64,7 @@
           <textarea md-input [(ngModel)]="person.bio" columns="1" md-maxlength="150" rows="5"></textarea>
         </md-input-container>
 
-        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignIn">
+        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignUp" (click)="signup()">
           Sign Up
         </button>
 

@@ -42,6 +42,7 @@ export class UserService {
 
       var header = new Headers();
       header.append('Content-Type', 'application/json');
+      header.append('Authorization', 'JWT '.concat(localStorage.getItem('token')));
 
       return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/', {
         headers: header

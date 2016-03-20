@@ -1,4 +1,4 @@
-import { Http, Headers } from 'angular2/http';
+import { Headers } from 'angular2/http';
 import { Router } from 'angular2/router';
 import { Injectable } from 'angular2/core';
 import { AuthHttp, JwtHelper } from 'angular2-jwt';
@@ -18,7 +18,7 @@ export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private http: Http, private authHttp: AuthHttp, private router: Router) {
+  constructor(private authHttp: AuthHttp, private router: Router) {
     this.me$ = new Observable(observer => this._meObserver = observer).share();
     if (this.getJwt()) {
       this.getMe()
@@ -72,6 +72,7 @@ export class AuthService {
     console.log('AuthService.login: ', this._me);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
+
     this.authHttp.post(
       'http://kl10ch.app-showcase.corelab.pro/api/auth/signin/',
       JSON.stringify({username: user.username, password: user.password}),
@@ -91,7 +92,7 @@ export class AuthService {
         },
         err => console.log('login user error: ', err),
         () => console.log('Authentication Complete')
-      );
+    );
   };
 
   activate(activation_key: string) {
@@ -103,15 +104,54 @@ export class AuthService {
         headers: header
       }).map(res => res.text());
   }
+  
+//   refresh() {
+//     var header = new Headers();
+//     header.append('Content-Type', 'application/json');
+//     header.append('Authorization', 'JWT '.concat(localStorage.getItem('token')));
+    
+//     return this.authHttp
+//       .post('http://kl10ch.app-showcase.corelab.pro/api/auth/token-refresh/', {
+//         headers: header
+//       })
+//       .map(res => res.json())
+//       .subscribe(
+//         data => {
+//           if (data.token){
+//             this.saveJwt(data.token);
+//           }
+//         },
+//         err => console.log('login user error: ', err),
+//         () => console.log('Authentication Complete')
+//       );
+//   }
 
-  signup(user: User) : boolean {
+  signup(user: User) {
     console.log('AuthService.signup: ', user);
     var header = new Headers();
     header.append('Content-Type', 'application/json');
-    user.is_auth = true;
-    this._me = {id: user.id, username: user.username, is_auth: user.is_auth};
-    this._meObserver.next(this._me);
-    return true;
+
+    this.authHttp.post(
+      'http://kl10ch.app-showcase.corelab.pro/api/auth/signup/',
+      JSON.stringify(user),
+      {headers: header}
+    )
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          if (data.token){
+            this.saveJwt(data.token);
+            user.is_auth = true;
+            this._me = {id: user.id, username: user.username, is_auth: user.is_auth};
+            this._meObserver.next(this._me);
+            console.log('AuthService.signup: ', this._me);
+            this.router.navigate(['Base']);
+          }
+        },
+        err => console.log('signup user error: ', err),
+        () => console.log('Authentication Complete')
+    );
+    
   };
 
   logout() {
@@ -122,19 +162,19 @@ export class AuthService {
   };
 
   getMe() {
+      
     console.log('AuthService.getMe: ');
 
     var token = localStorage.getItem('token');
     var username = this.jwtHelper.decodeToken(token).username;
-
     var header = new Headers();
-    console.log('AuthService.isAuth: ', this._me.is_auth);
     header.append('Content-Type', 'application/json');
+    header.append('Authorization', 'JWT '.concat(localStorage.getItem('token')));
+    // var header = new Headers();
+    console.log('AuthService.isAuth: ', this._me.is_auth);
+    // header.append('Content-Type', 'application/json');
 
-    setTimeout(
-      this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(username), {
-            headers: header
-      })
+    this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(username), {headers: header})
       .map(res => res.json())
       .subscribe(
         data => {
@@ -144,6 +184,6 @@ export class AuthService {
         },
         err => console.log('get user error: ', err),
         () => console.log('AuthService.getMe is DONE')
-      ), 1000);
+    )
   }
 }

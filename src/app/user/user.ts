@@ -1,4 +1,4 @@
-import { IUser, IPerson } from '../base/interfaces/interfaces';
+import { IUser, IPerson, IPosition, IPhone } from '../base/interfaces/interfaces';
 import { Person } from '../base/classes/person';
 
 export class User implements IUser {
@@ -7,6 +7,8 @@ export class User implements IUser {
   username: string = null;
   password: string = null;
   person: IPerson;
+  positions: IPosition[];
+  phones: IPhone[];
   token: string = null;
   is_auth: boolean = false;
 

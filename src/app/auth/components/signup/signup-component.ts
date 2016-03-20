@@ -5,7 +5,7 @@ import {FORM_DIRECTIVES, Validators} from 'angular2/common';
 import {AuthService} from '../../auth-service';
 import { User } from '../../../user/user';
 import { Person } from '../../../base/classes/person';
-import { IPerson, IEMail } from '../../../base/interfaces/interfaces';
+import { IPerson, IEMail, IPhone, IPosition } from '../../../base/interfaces/interfaces';
 
 
 @Component({
@@ -29,6 +29,7 @@ export class Signup {
   };
   email: IEMail = { body: null };
 
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -37,12 +38,15 @@ export class Signup {
   }
 
   signup() {
+    this.me.person = this.person;
+    this.me.person.emails = [];
+    this.email.cat = 'What is cat?';
+    
+    this.me.person.emails.push(this.email);
+    
     console.log('Signup.signup: ', this.me);
-    if (this.authService.signup(this.me)){
-      this.router.navigate(['Base']);
-    } else {
-      console.log('Signup.signup: FAILED');
-    }
+    
+    this.authService.signup(this.me);
   }
 
   ngOnInit() {
