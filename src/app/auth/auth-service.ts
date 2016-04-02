@@ -90,7 +90,10 @@ export class AuthService {
                         this.router.navigate(['Base']);
                     }
                 },
-                err => console.log('login user error: ', err),
+                err => {
+                  console.log('login user error: ', err);
+                  this.logout();  
+                },
                 () => console.log('Authentication Complete')
             );
     };
@@ -148,7 +151,10 @@ export class AuthService {
                         this.router.navigate(['Base']);
                     }
                 },
-                err => console.log('signup user error: ', err),
+                err =>{
+                  console.log('signup user error: ', err);
+                  this.logout();  
+                },
                 () => console.log('Authentication Complete')
             );
 

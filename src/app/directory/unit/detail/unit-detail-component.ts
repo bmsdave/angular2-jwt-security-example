@@ -8,7 +8,6 @@ import { UnitService } from './../unit-service'
 @Component({
     selector: 'unit-detail',
     template: require('./unit_list.html'),
-    providers: [IUnit],
     directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 

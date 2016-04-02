@@ -8,7 +8,6 @@ import { EnterpriseService } from './../enterprise-service'
 @Component({
     selector: 'enterprise-detail',
     template: require('./enterprise_list.html'),
-    providers: [IEnterprise],
     directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
