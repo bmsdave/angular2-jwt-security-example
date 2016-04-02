@@ -19,7 +19,9 @@ export class AuthService {
     jwtHelper:JwtHelper = new JwtHelper();
 
     constructor(private authHttp:AuthHttp, private router:Router) {
-        this.me$ = new Observable(observer => this._meObserver = observer).share();
+        this.me$ = new Observable(
+          observer => this._meObserver = observer
+        ).share();
         if (this.getJwt()) {
             this.getMe()
         }
