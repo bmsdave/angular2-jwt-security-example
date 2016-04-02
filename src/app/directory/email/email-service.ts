@@ -9,84 +9,86 @@ import {IEMail} from '../../base/interfaces/interfaces';
 @Injectable()
 export class EMailService {
 
-  public baseUrl = 'http://kl10ch.app-showcase.corelab.pro/api';
-  public emails: Observable<IEMail[]>;
-  public selectedEMail: Observable<IEMail>;
+    public baseUrl = 'http://kl10ch.app-showcase.corelab.pro/api';
+    public emails:Observable<IEMail[]>;
+    public selectedEMail:Observable<IEMail>;
 
-  private _emailsObserver: Observer<IEMail[]>;
-  private _emails: IEMail[];
-  private _selectedEMailObserver: Observer<IEMail>;
+    private _emailsObserver:Observer<IEMail[]>;
+    private _emails:IEMail[];
+    private _selectedEMailObserver:Observer<IEMail>;
 
-  constructor(
-    private http: Http,
-    private router: Router,
-    private authHttp: AuthHttp
-  ) {
-    this.getEMails();
+    constructor(private http:Http,
+                private router:Router,
+                private authHttp:AuthHttp) {
+        this.getEMails();
 
-    this.selectedEMail = new Observable(observer =>
-      this._selectedEMailObserver = observer);
+        this.selectedEMail = new Observable(observer =>
+            this._selectedEMailObserver = observer);
 
-    this.emails = new Observable(observer =>
-      this._emailsObserver = observer);
-  }
+        this.emails = new Observable(observer =>
+            this._emailsObserver = observer);
+    }
 
-  getEMails() {
-    console.log('getEMails');
+    getEMails() {
+        console.log('getEMails');
 
-    var header = new Headers();
-    header.append('Content-Type', 'application/json');
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
 
-    return this.authHttp.get('', {
-        headers: header
-      })
-      .map(res => res.json()).subscribe(
-        (data) => {
-          console.log(data);
-          for ( var item of data ) {
-            this._emails.push(item);
-          }
-        },
-        err => console.log('getEMail.error: ', err),
-        () => console.log('get email complete')
-      );
-  };
+        return this.authHttp.get('', {
+                headers: header
+            })
+            .map(res => res.json()).subscribe(
+                (data) => {
+                    console.log(data);
+                    for (var item of data) {
+                        this._emails.push(item);
+                    }
+                },
+                err => console.log('getEMail.error: ', err),
+                () => console.log('get email complete')
+            );
+    };
 
-  fetchEMails() {
-    this._emailsObserver.next(this._emails);
-  }
+    fetchEMails() {
+        this._emailsObserver.next(this._emails);
+    }
 
-  selectEmail(email) {
-    this._selectedEMailObserver.next(email);
-  }
+    selectEmail(email) {
+        this._selectedEMailObserver.next(email);
+    }
 
-  createEMail(email: IEMail) {
-    this.authHttp.post('/api/email', JSON.stringify(email))
-      .map(response => response.json()).subscribe(data => {
-      this._emails.push(data);
-      this._emailsObserver.next(this._emails);
-    }, error => console.log('Could not create email.'));
-  }
+    createEMail(email:IEMail) {
+        this.authHttp.post('/api/email', JSON.stringify(email))
+            .map(response => response.json()).subscribe(data => {
+            this._emails.push(data);
+            this._emailsObserver.next(this._emails);
+        }, error => console.log('Could not create email.'));
+    }
 
-  updateEMail(email: IEMail) {
-    this.http.put(`/directory/email/${email.id}`, JSON.stringify(email))
-      .map(response => response.json()).subscribe(data => {
-      this._emails.forEach((email, i) => {
-        if (email.id === data.id) { this._emails[i] = data; }
-      });
+    updateEMail(email:IEMail) {
+        this.http.put(`/directory/email/${email.id}`, JSON.stringify(email))
+            .map(response => response.json()).subscribe(data => {
+            this._emails.forEach((email, i) => {
+                if (email.id === data.id) {
+                    this._emails[i] = data;
+                }
+            });
 
-      this._emailsObserver.next(this._emails);
-    }, error => console.log('Could not update email.'));
-  }
+            this._emailsObserver.next(this._emails);
+        }, error => console.log('Could not update email.'));
+    }
 
-  deleteEMail(emailId: number) {
-    this.http.delete(`/directory/email/${emailId}`).subscribe(response => {
-      this._emails.forEach((e, index) => {
-        if (e.id === emailId) { this._emails.splice(index, 1); }
-      });
+    deleteEMail(emailId:number) {
+        this.http.delete(`/directory/email/${emailId}`).subscribe(response => {
+            this._emails.forEach((e, index) => {
+                if (e.id === emailId) {
+                    this._emails.splice(index, 1);
+                }
+            });
 
-      this._emailsObserver.next(this._emails);
-    }, error => console.log('Could not delete email.'));
-  }
+            this._emailsObserver.next(this._emails);
+        }, error => console.log('Could not delete email.'));
+    }
 
 }

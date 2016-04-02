@@ -6,18 +6,18 @@ import { Person } from '../../base/classes/person';
 import { PersonService } from './person-service';
 
 @Component({
-  selector: 'person',
-  template: require('./person.html'),
-  providers: [Person],
-  directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
+    selector: 'person',
+    template: require('./person.html'),
+    providers: [Person],
+    directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class PersonComponent {
 
-  public person: Person;
+    public person:Person;
 
-  constructor(@Inject(PersonService) private PersonService) {
-    PersonService.person.subscribe(newPerson => this.person = newPerson);
-  }
+    constructor(@Inject(PersonService) private PersonService) {
+        PersonService.person.subscribe(newPerson => this.person = newPerson);
+    }
 
 }

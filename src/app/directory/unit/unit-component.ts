@@ -6,18 +6,18 @@ import { Unit } from '../../base/classes/unit';
 import { UnitService } from './unit-service';
 
 @Component({
-  selector: 'unit',
-  template: require('./unit.html'),
-  providers: [Unit],
-  directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
+    selector: 'unit',
+    template: require('./unit.html'),
+    providers: [Unit],
+    directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class UnitComponent {
 
-  public unit: Unit;
+    public unit:Unit;
 
-  constructor(@Inject(UnitService) private UnitService) {
-    UnitService.position.subscribe(newUnit => this.unit = newUnit);
-  }
+    constructor(@Inject(UnitService) private UnitService) {
+        UnitService.position.subscribe(newUnit => this.unit = newUnit);
+    }
 
 }

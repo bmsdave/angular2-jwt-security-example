@@ -1,22 +1,17 @@
 <div layout="column" class="md-inline-form">
     <md-content layout-padding>
         <div>
-            <form name="unitForm" (submit)="save()">
+            <form name="emailForm" (submit)="save()">
 
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label>Enterprise</label>
-                        <input md-input [(ngModel)]="unit.enterprise" type="text">
+                        <label>Category</label>
+                        <input md-input [(ngModel)]="email.cat" type="text">
                     </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label>Parent Unit</label>
-                        <input md-input [(ngModel)]="unit.parent" type="text">
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Title</label>
-                        <input md-input [(ngModel)]="unit.title" type="text">
+                        <label>Body</label>
+                        <input md-input [(ngModel)]="email.body" type="email">
                     </md-input-container>
                 </div>
 

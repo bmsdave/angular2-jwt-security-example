@@ -1,32 +1,32 @@
 <div layout="column" class="md-inline-form">
-  <md-content layout-padding>
-    <div>
-      <form name="phoneForm" (submit)="save()">
+    <md-content layout-padding>
+        <div>
+            <form name="phoneForm" (submit)="save()">
 
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Category</label>
-            <input md-input [(ngModel)]="phone.cat" type="text">
-          </md-input-container>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Category</label>
+                        <input md-input [(ngModel)]="phone.cat" type="text">
+                    </md-input-container>
 
-          <md-input-container class="md-block" flex-gt-sm>
-            <input md-input [(ngModel)]="phone.country_code" type="number">
-          </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input md-input [(ngModel)]="phone.country_code" type="number">
+                    </md-input-container>
 
-          <md-input-container class="md-block" flex-gt-sm>
-            <input md-input [(ngModel)]="phone.area_code" type="number">
-          </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input md-input [(ngModel)]="phone.area_code" type="number">
+                    </md-input-container>
 
-          <md-input-container class="md-block" flex-gt-sm>
-            <input md-input [(ngModel)]="phone.number" type="text">
-          </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input md-input [(ngModel)]="phone.number" type="text">
+                    </md-input-container>
+                </div>
+
+                <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="Save">
+                    Save
+                </button>
+
+            </form>
         </div>
-
-        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="Save">
-          Save
-        </button>
-
-      </form>
-    </div>
-  </md-content>
+    </md-content>
 </div>
