@@ -34,7 +34,6 @@ export class UserService {
           observer => this._usersObserver = observer
         ).share();
             
-        this.getUsers();
     }
 
     next() {
@@ -60,6 +59,29 @@ export class UserService {
                         this._users.push(item);
                     };
                     this._usersObserver.next(this._users);
+                },
+                err => console.log('getUsers.error: ', err),
+                () => console.log('get users complete')
+            );
+    };
+
+
+    getSelectedUser(username) {
+        console.log('getSelectedUser');
+
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', 'JWT '.concat(localStorage.getItem('token')));
+
+        return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/'.concat(username), {
+                headers: header
+            })
+            .map(res => res.json())
+            .subscribe(
+                data => {
+                    console.log(data);
+                    this._selectedUser = data;
+                    this._selectedUserObserver.next(this._selectedUser);
                 },
                 err => console.log('getUsers.error: ', err),
                 () => console.log('get users complete')
