@@ -8,7 +8,6 @@ import { Router, RouterLink } from 'angular2/router';
 @Component({
     selector: 'user-list',
     template: require('./user-list.html'),
-    providers: [UserService],
     directives: [CORE_DIRECTIVES, RouterLink]
 })
 
@@ -17,8 +16,7 @@ export class UserList {
     title = 'users list';
     users:IUser[];
 
-    constructor(@Inject(UserService) private UserService) {
-        UserService.users.subscribe(users => this.users = users);
-        UserService.fetchUsers();
+    constructor(private UserService:UserService) {
+        this.UserService.users$.subscribe(users => this.users = users);
     }
 }

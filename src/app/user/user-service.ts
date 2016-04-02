@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+import 'rxjs/add/operator/share';
 import {AuthHttp, JwtHelper, AuthConfig} from 'angular2-jwt';
 import {Http, Headers, Response} from 'angular2/http';
 import {Router} from 'angular2/router';
@@ -13,27 +13,34 @@ import {User} from './user';
 @Injectable()
 export class UserService {
 
+   
+    public users$:Observable<IUser[]>;
+    public selectedUser$:Observable<IUser>;
 
-    public baseUrl = '/';
-    public users:Observable<IUser>;
-    public selectedUser:Observable<IUser>;
-
-    private _usersObserver:Observer<IUser[]>;
+    private _usersObserver:any;
     private _users:IUser[] = [];
-    private _selectedUserObserver:Observer<IUser>;
+    private _selectedUserObserver:any;
+    private _selectedUser:IUser = {id: null, username: null, is_auth: false};
 
     constructor(private http:Http,
                 private router:Router,
                 private authHttp:AuthHttp) {
+        
+        this.selectedUser$ = new Observable(
+          observer => this._selectedUserObserver = observer
+        ).share();
+
+        this.users$ = new Observable(
+          observer => this._usersObserver = observer
+        ).share();
+            
         this.getUsers();
-
-        this.selectedUser = new Observable(observer =>
-            this._selectedUserObserver = observer);
-
-        this.users = new Observable(observer =>
-            this._usersObserver = observer);
     }
 
+    next() {
+        console.log("UserService.next: ", this._usersObserver);
+        this._selectedUserObserver.next(this._selectedUser);
+    }
 
     getUsers() {
         console.log('getUsers');
@@ -47,11 +54,12 @@ export class UserService {
             })
             .map(res => res.json())
             .subscribe(
-                (data) => {
+                data => {
                     console.log(data);
                     for (var item of data) {
                         this._users.push(item);
-                    }
+                    };
+                    this._usersObserver.next(this._users);
                 },
                 err => console.log('getUsers.error: ', err),
                 () => console.log('get users complete')

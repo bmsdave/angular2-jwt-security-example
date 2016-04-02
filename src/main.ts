@@ -7,6 +7,7 @@ import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {enableProdMode} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {AuthService} from './app/auth/auth-service';
+import {UserService} from './app/user/user-service';
 import {YOUR_HEADER_NAME, YOUR_HEADER_PREFIX, YOUR_TOKEN_NAME } from './config';
 
 enableProdMode();
@@ -39,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function main() {
         }),
         AuthHttp,
         AuthService,
+        UserService,
         ConnectionBackend
     ])
         .catch(err => console.error(err));
 });
+
