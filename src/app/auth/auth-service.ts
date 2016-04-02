@@ -188,7 +188,10 @@ export class AuthService {
                     this._me.is_auth = true;
                     this.next();
                 },
-                err => console.log('get user error: ', err),
+                err => {
+                  console.log('get me error: ', err);
+                  this.logout();  
+                },
                 () => console.log('AuthService.getMe is DONE')
             )
     }
