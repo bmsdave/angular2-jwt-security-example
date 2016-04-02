@@ -6,25 +6,25 @@
                 {{ title }}
             </h3>
         </header>
-        <br />
+        <br/>
         <div class="container">
             <md-content class="md-padding" layout="row" layout-wrap layout-align="center start">
                 <hr>
-                    <md-card *ngFor="#user of users">
-                      <md-card-title>
+                <md-card *ngFor="#user of users">
+                    <md-card-title>
                         <md-card-title-text>
                           <span class="md-headline"><a [routerLink]="['UserDetail',{username:user.username}]">
-                            {{user.username}}<i class="icon-edit icon-white editIcon"></i></a>
+                              {{user.username}}<i class="icon-edit icon-white editIcon"></i></a>
                           </span>
                           <span class="md-subhead" *ngIf="user.person">{{user.person.first_name}}<br>
                             {{user.person.last_name}}
                           </span>
                         </md-card-title-text>
                         <md-card-title-media>
-                          <div class="md-media-sm card-media"></div>
+                            <div class="md-media-sm card-media"></div>
                         </md-card-title-media>
-                      </md-card-title>
-                    </md-card>
+                    </md-card-title>
+                </md-card>
                 <hr>
             </md-content>
         </div>

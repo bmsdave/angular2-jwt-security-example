@@ -21,65 +21,65 @@ import { UserDetail } from './user/components/detail/user-detail-component';
 import { UserMinimal } from './user/components/minimal/user-minimal-component';
 
 @Component({
-  selector: 'app-container',
-  providers: [MATERIAL_PROVIDERS]
+    selector: 'app-container',
+    providers: [MATERIAL_PROVIDERS]
 })
 @RouteConfig([
-  { path: '/',                          component: Base,       name: 'Base' },
-  { path: '/users',                     component: UserList,   name: 'UserList' },
-  { path: '/user/:username',            component: UserDetail, name: 'UserDetail' },
+    {path: '/', component: Base, name: 'Base'},
+    {path: '/users', component: UserList, name: 'UserList'},
+    {path: '/user/:username', component: UserDetail, name: 'UserDetail'},
 
-  { path: '/person',                    component: PersonComponent,     name: 'Person' },
+    {path: '/person', component: PersonComponent, name: 'Person'},
 
-  { path: '/me',                        component: Me,         name: 'Me' },
-  { path: '/login',                     component: Login,      name: 'Login' },
-  { path: '/logout',                    component: Logout,     name: 'Logout' },
-  { path: '/signup',                    component: Signup,     name: 'Signup' },
-  { path: '/activate/:activation_key',  component: Activation, name: 'Activation' },
+    {path: '/me', component: Me, name: 'Me'},
+    {path: '/login', component: Login, name: 'Login'},
+    {path: '/logout', component: Logout, name: 'Logout'},
+    {path: '/signup', component: Signup, name: 'Signup'},
+    {path: '/activate/:activation_key', component: Activation, name: 'Activation'},
 ])
 @View({
-  directives: [
-    ...ROUTER_DIRECTIVES,
-    MATERIAL_DIRECTIVES,
-    Login,
-    Signup,
-    UserMinimal
+    directives: [
+        ...ROUTER_DIRECTIVES,
+        MATERIAL_DIRECTIVES,
+        Login,
+        Signup,
+        UserMinimal
     ],
-  styles: [require('../assets/css/index.scss')],
-  template: require('./app.html'),
-  encapsulation: ViewEncapsulation.None
+    styles: [require('../assets/css/index.scss')],
+    template: require('./app.html'),
+    encapsulation: ViewEncapsulation.None
 })
 export class App {
 
-  angularclassLogo = '';
-  name = 'KRONOS ERP';
-  url = '';
+    angularclassLogo = '';
+    name = 'KRONOS ERP';
+    url = '';
 
-  me: User = new User({id: null, username: null, is_auth: false});
-  
-  constructor(
-      private AuthService: AuthService,
-      public router: Router,
-      public sidenav: SidenavService
-    ) {
-  }
+    me:User = new User({id: null, username: null, is_auth: false});
 
-  ngOnInit() {
-    this.AuthService.me$.subscribe( me => { this.me = new User(me); });
-    this.AuthService.next();
-  }
+    constructor(private AuthService:AuthService,
+                public router:Router,
+                public sidenav:SidenavService) {
+    }
 
-  // view logic
-  hasMedia(breakSize: string): boolean {
-    return Media.hasMedia(breakSize);
-  }
+    ngOnInit() {
+        this.AuthService.me$.subscribe(me => {
+            this.me = new User(me);
+        });
+        this.AuthService.next();
+    }
 
-  open(name: string) {
-    this.sidenav.show(name);
-  }
+    // view logic
+    hasMedia(breakSize:string):boolean {
+        return Media.hasMedia(breakSize);
+    }
 
-  close(name: string) {
-    this.sidenav.hide(name);
-  }
+    open(name:string) {
+        this.sidenav.show(name);
+    }
+
+    close(name:string) {
+        this.sidenav.hide(name);
+    }
 
 }

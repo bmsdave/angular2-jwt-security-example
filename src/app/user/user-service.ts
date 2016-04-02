@@ -15,18 +15,16 @@ export class UserService {
 
 
     public baseUrl = '/';
-    public users: Observable<IUser>;
-    public selectedUser: Observable<IUser>;
+    public users:Observable<IUser>;
+    public selectedUser:Observable<IUser>;
 
-    private _usersObserver: Observer<IUser[]>;
-    private _users:  IUser[] = [];
-    private _selectedUserObserver: Observer<IUser>;
+    private _usersObserver:Observer<IUser[]>;
+    private _users:IUser[] = [];
+    private _selectedUserObserver:Observer<IUser>;
 
-    constructor(
-      private http: Http,
-      private router: Router,
-      private authHttp: AuthHttp
-    ) {
+    constructor(private http:Http,
+                private router:Router,
+                private authHttp:AuthHttp) {
         this.getUsers();
 
         this.selectedUser = new Observable(observer =>
@@ -38,33 +36,34 @@ export class UserService {
 
 
     getUsers() {
-      console.log('getUsers');
+        console.log('getUsers');
 
-      var header = new Headers();
-      header.append('Content-Type', 'application/json');
-      header.append('Authorization', 'JWT '.concat(localStorage.getItem('token')));
+        var header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', 'JWT '.concat(localStorage.getItem('token')));
 
-      return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/', {
-        headers: header
-      })
-      .map(res => res.json())
-      .subscribe(
-          (data) => {
-            console.log(data);
-            for ( var item of data ) {
-              this._users.push(item);
-            }
-          },
-          err => console.log('getUser.error: ', err),
-          () => console.log('get user complete')
-      );
+        return this.authHttp.get('http://kl10ch.app-showcase.corelab.pro/api/user/', {
+                headers: header
+            })
+            .map(res => res.json())
+            .subscribe(
+                (data) => {
+                    console.log(data);
+                    for (var item of data) {
+                        this._users.push(item);
+                    }
+                },
+                err => console.log('getUsers.error: ', err),
+                () => console.log('get users complete')
+            );
     };
 
     fetchUsers() {
-      this._usersObserver.next(this._users);
+        this._usersObserver.next(this._users);
     }
 
     selectUser(user) {
+        console.log(user);
         this._selectedUserObserver.next(user);
     }
 

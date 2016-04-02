@@ -3,21 +3,19 @@ import {Router} from 'angular2/router';
 import {AuthService} from '../../auth-service';
 
 @Component({
-  selector: 'logout',
-  template: ''
+    selector: 'logout',
+    template: ''
 })
 
 export class Logout {
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-    ) {
-  }
+    constructor(private authService:AuthService,
+                private router:Router) {
+    }
 
-  ngOnInit() {
-    this.authService.logout();
-    this.router.navigate(['Login']);
-  }
+    ngOnInit() {
+        this.authService.logout();
+        this.router.navigate(['Login']);
+    }
 
 }

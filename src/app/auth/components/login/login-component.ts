@@ -7,32 +7,31 @@ import { IUser } from '../../../base/interfaces/interfaces';
 import { User } from '../../../user/user';
 
 @Component({
-  selector: 'login',
-  template: require('./login.html'),
-  directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
+    selector: 'login',
+    template: require('./login.html'),
+    directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Login {
 
-  me: User = new User({ username: null, is_auth: false });
+    me:User = new User({username: null, is_auth: false});
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
-    authService.me$.subscribe(me => this.me = new User(me));
-  }
+    constructor(private authService:AuthService,
+                private router:Router) {
+        authService.me$.subscribe(me => this.me = new User(me));
+    }
 
-  login() {
-    this.authService.login(this.me);
-  }
+    login() {
+        this.authService.login(this.me);
+    }
 
-  ngOnInit() {
-    this.authService.me$.subscribe(me => this.me = new User(me));
-    if (this.authService.getJwt()){
-      this.authService.getMe();
-      this.router.navigate(['Base']);
-    };
-  }
+    ngOnInit() {
+        this.authService.me$.subscribe(me => this.me = new User(me));
+        if (this.authService.getJwt()) {
+            this.authService.getMe();
+            this.router.navigate(['Base']);
+        }
+        ;
+    }
 
 }

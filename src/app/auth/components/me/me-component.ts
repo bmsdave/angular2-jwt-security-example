@@ -7,19 +7,17 @@ import { IUser } from '../../../base/interfaces/interfaces';
 import { User } from '../../../user/user';
 
 @Component({
-  selector: 'me',
-  template: require('./me.html'),
-  directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
+    selector: 'me',
+    template: require('./me.html'),
+    directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Me {
 
-  me: User;
+    me:User;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-    ) {
-    authService.me$.subscribe(me => this.me = new User(me));
-  }
+    constructor(private authService:AuthService,
+                private router:Router) {
+        authService.me$.subscribe(me => this.me = new User(me));
+    }
 }

@@ -6,35 +6,33 @@ import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import {AuthService} from '../../auth-service';
 
 @Component({
-  selector: 'activate',
-  template: require('./activation.html'),
-  providers: [AuthService],
-  directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
+    selector: 'activate',
+    template: require('./activation.html'),
+    providers: [AuthService],
+    directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Activation {
 
-  activation_key: string;
-  activation_success: boolean;
+    activation_key:string;
+    activation_success:boolean;
 
-  constructor(
-    private authService: AuthService,
-    private params: RouteParams,
-    private router: Router
-    ) {
-    this.activation_key = params.get('activation_key');
-  }
+    constructor(private authService:AuthService,
+                private params:RouteParams,
+                private router:Router) {
+        this.activation_key = params.get('activation_key');
+    }
 
-  ngOnInit() {
-    this.authService.activate(this.activation_key)
-      .subscribe(
-        res => {
-          this.router.navigate(['Login']);
-        },
-        err => {
-          this.activation_success = false;
-        }
-      );
-  }
+    ngOnInit() {
+        this.authService.activate(this.activation_key)
+            .subscribe(
+                res => {
+                    this.router.navigate(['Login']);
+                },
+                err => {
+                    this.activation_success = false;
+                }
+            );
+    }
 
 }

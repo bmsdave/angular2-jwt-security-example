@@ -1,75 +1,76 @@
 <div layout="column" class="md-inline-form">
 
-  <md-toolbar class="md-hero" layout="row" layout-align="center center" layout-align-gt-md="end end">
-    <div class="md-toolbar-tools">
-      <h1>Sign UP</h1>
-    </div>
-    <i class="secret-project" md-icon>person</i>
-  </md-toolbar>
-
-  <md-content layout-padding>
-    <div>
-      <form name="signUpForm">
-
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Display name</label>
-            <input md-input [(ngModel)]="me.username">
-          </md-input-container>
-
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Email</label>
-            <input md-input [(ngModel)]="email.body" type="email">
-          </md-input-container>
+    <md-toolbar class="md-hero" layout="row" layout-align="center center" layout-align-gt-md="end end">
+        <div class="md-toolbar-tools">
+            <h1>Sign UP</h1>
         </div>
+        <i class="secret-project" md-icon>person</i>
+    </md-toolbar>
 
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>First name</label>
-            <input md-input [(ngModel)]="person.first_name">
-          </md-input-container>
+    <md-content layout-padding>
+        <div>
+            <form name="signUpForm">
 
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Last Name</label>
-            <input md-input [(ngModel)]="person.last_name">
-          </md-input-container>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Display name</label>
+                        <input md-input [(ngModel)]="me.username">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Email</label>
+                        <input md-input [(ngModel)]="email.body" type="email">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>First name</label>
+                        <input md-input [(ngModel)]="person.first_name">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Last Name</label>
+                        <input md-input [(ngModel)]="person.last_name">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Birth date</label>
+                        <input md-input [(ngModel)]="person.date_of_birth" type="date">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Sex</label>
+                        <input md-input [(ngModel)]="person.sex">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Password</label>
+                        <input md-input [(ngModel)]="me.password" type="password">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Password confirmation</label>
+                        <input md-input [(ngModel)]="me.confirm_password" type="password">
+                    </md-input-container>
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>Biography</label>
+                    <textarea md-input [(ngModel)]="person.bio" columns="1" md-maxlength="150" rows="5"></textarea>
+                </md-input-container>
+
+                <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignUp"
+                        (click)="signup()">
+                    Sign Up
+                </button>
+
+            </form>
         </div>
-
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Birth date</label>
-            <input md-input [(ngModel)]="person.date_of_birth" type="date">
-          </md-input-container>
-
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Sex</label>
-            <input md-input [(ngModel)]="person.sex">
-          </md-input-container>
-        </div>
-
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Password</label>
-            <input md-input [(ngModel)]="me.password" type="password">
-          </md-input-container>
-
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Password confirmation</label>
-            <input md-input [(ngModel)]="me.confirm_password" type="password">
-          </md-input-container>
-        </div>
-
-        <md-input-container class="md-block">
-          <label>Biography</label>
-          <textarea md-input [(ngModel)]="person.bio" columns="1" md-maxlength="150" rows="5"></textarea>
-        </md-input-container>
-
-        <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="SignUp" (click)="signup()">
-          Sign Up
-        </button>
-
-      </form>
-    </div>
-  </md-content>
+    </md-content>
 
 </div>
