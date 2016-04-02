@@ -1,0 +1,28 @@
+<div class="user-detail view indent">
+    <div class="container">
+        <br/>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th sort-by="id" (sorted)="sort($event)">id</th>
+                <th sort-by="username" (sorted)="sort($event)">username</th>
+                <th sort-by="person" (sorted)="sort($event)">person</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <a [routerLink]="['UserDetail',{username: user.username}]">
+                        {{ user.id }}
+                    </a>
+                </td>
+                <td>{{ user.username }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <person></person>
+        <email></email>
+        <br/>
+        <a [routerLink]="['UserList']">View all Users</a>
+    </div>
+</div>

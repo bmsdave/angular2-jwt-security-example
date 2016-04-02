@@ -1,0 +1,26 @@
+<div layout="column" class="md-inline-form">
+    <md-content layout-padding>
+        <div>
+            <form name="emailForm" (submit)="save()">
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Category</label>
+                        <input md-input [(ngModel)]="email.cat" type="text">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Body</label>
+                        <input md-input [(ngModel)]="email.body" type="email">
+                    </md-input-container>
+                </div>
+
+                <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="Save">
+                    Save
+                </button>
+
+            </form>
+        </div>
+    </md-content>
+</div>
+

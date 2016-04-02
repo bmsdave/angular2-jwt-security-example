@@ -1,0 +1,36 @@
+<div layout="column">
+
+    <md-sidenav-container layout="row" flex>
+        <md-sidenav name="left" [style]="hasMedia('gt-sm') ? 'side' : 'over'">
+            <md-toolbar class="md-theme-indigo">
+                <!-- <h1 class="md-toolbar-tools">Menu</h1> -->
+                <user-minimal [me]="me"></user-minimal>
+            </md-toolbar>
+            <md-content layout-padding>
+                <p>
+                    <button *ngIf="me.is_auth" md-button [routerLink]="['Logout']">Logout</button>
+                </p>
+                <p>
+                    <button *ngIf="!me.is_auth" md-button [routerLink]="['Login']">Login</button>
+                </p>
+                <p>
+                    <button *ngIf="!me.is_auth" md-button [routerLink]="['Signup']">Signup</button>
+                </p>
+                <p>
+                    <button *ngIf="me.is_auth" md-button [routerLink]="['Base']">Base</button>
+                </p>
+                <p>
+                    <button *ngIf="me.is_auth" md-button [routerLink]="['UserList']">UserList</button>
+                </p>
+                <p>
+                    <button *ngIf="me.is_auth" md-button [routerLink]="['Person']">Person</button>
+                </p>
+
+            </md-content>
+        </md-sidenav>
+
+        <md-content flex layout-padding>
+            <router-outlet></router-outlet>
+        </md-content>
+    </md-sidenav-container>
+</div>
