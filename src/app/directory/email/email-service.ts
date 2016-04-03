@@ -10,8 +10,8 @@ import {IEMail} from '../../base/interfaces/interfaces';
 export class EMailService {
 
     public baseUrl = 'http://kl10ch.app-showcase.corelab.pro/api';
-    public emails:Observable<IEMail[]>;
-    public selectedEMail:Observable<IEMail>;
+    public emails$:Observable<IEMail[]>;
+    public selectedEMail$:Observable<IEMail>;
 
     private _emailsObserver:Observer<IEMail[]>;
     private _emails:IEMail[];
@@ -22,10 +22,10 @@ export class EMailService {
                 private authHttp:AuthHttp) {
         this.getEMails();
 
-        this.selectedEMail = new Observable(observer =>
+        this.selectedEMail$ = new Observable(observer =>
             this._selectedEMailObserver = observer);
 
-        this.emails = new Observable(observer =>
+        this.emails$ = new Observable(observer =>
             this._emailsObserver = observer);
     }
 
