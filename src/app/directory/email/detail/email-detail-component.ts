@@ -1,23 +1,26 @@
-import {Component, View, Inject} from '../../../../../node_modules/angular2/core.d';
-import {Router} from '../../../../../node_modules/angular2/router.d';
-import {FORM_DIRECTIVES, Validators} from '../../../../../node_modules/angular2/common.d';
-import {MATERIAL_DIRECTIVES} from '../../../../../node_modules/ng2-material/all.d';
+import {Component, View, Inject, Input, Output} from 'angular2/core';
+import {Router} from 'angular2/router';
+import {FORM_DIRECTIVES, Validators} from 'angular2/common';
+import {MATERIAL_DIRECTIVES} from 'ng2-material/all';
 import { EMail } from '../../../base/classes/email';
-import { EMailService } from './../email-service'
+import { EMailService } from './../email-service';
+import { IEMail, category } from '../../../base/interfaces/interfaces';
 
 @Component({
     selector: 'email-detail',
-    template: require('./email_list.html'),
-    providers: [EMail],
+    template: require('./email-detail.html'),
     directives: [MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class EmailComponent {
 
-    private email:EMail;
+    private email:EMail = new EMail({id:null, cat:category.Home, body:null});
+    
+    @Input() test: String;
+    
 
-    constructor(@Inject(EMailService) private EMailService) {
-        EMailService.email.subscribe(newEMail => this.email = newEMail);
+    constructor(private EMailService: EMailService) {
+        EMailService.selectedEMail$.subscribe(newEMail => this.email = new EMail(newEMail));
     }
 
 }

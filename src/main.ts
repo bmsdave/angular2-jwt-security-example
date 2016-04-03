@@ -8,6 +8,7 @@ import {enableProdMode} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {AuthService} from './app/auth/auth-service';
 import {UserService} from './app/user/user-service';
+import {EMailService} from './app/directory/email/email-service';
 import {YOUR_HEADER_NAME, YOUR_HEADER_PREFIX, YOUR_TOKEN_NAME } from './config';
 
 enableProdMode();
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function main() {
         AuthHttp,
         AuthService,
         UserService,
+        EMailService,
         ConnectionBackend
     ])
         .catch(err => console.error(err));

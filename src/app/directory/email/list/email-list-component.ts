@@ -7,7 +7,7 @@ import { EMailService } from './../email-service'
 
 @Component({
     selector: 'email-list',
-    template: require('./email_list.html'),
+    template: require('./email-list.html'),
     providers: [EMailService],
     directives: [CORE_DIRECTIVES, MATERIAL_DIRECTIVES, FORM_DIRECTIVES]
 })
