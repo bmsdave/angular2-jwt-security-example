@@ -55,6 +55,7 @@ export class UserService {
             .subscribe(
                 data => {
                     console.log(data);
+                    this._users = [];
                     for (var item of data) {
                         this._users.push(item);
                     };
