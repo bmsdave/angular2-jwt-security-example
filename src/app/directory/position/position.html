@@ -1,0 +1,37 @@
+<div layout="column" class="md-inline-form">
+    <md-content layout-padding>
+        <div>
+            <form name="positionForm" (submit)="save()">
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Unit</label>
+                        <input md-input [(ngModel)]="position.unit" type="text">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Title</label>
+                        <input md-input [(ngModel)]="position.title" type="text">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Since</label>
+                        <input md-input [(ngModel)]="position.since" type="date">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Until</label>
+                        <input md-input [(ngModel)]="position.until" type="date">
+                    </md-input-container>
+                </div>
+
+                <button md-raised-button type="submit" class="md-raised md-primary md-hue-3" aria-label="Save">
+                    Save
+                </button>
+
+            </form>
+        </div>
+    </md-content>
+</div>

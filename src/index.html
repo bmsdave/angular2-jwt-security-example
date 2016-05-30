@@ -1,88 +1,35 @@
-<!--
-   kronos-front-end
-   @Vadim Gorbachev
-   bmsdave@gmail.com
--->
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
-    <base href="/src/"></base>
-    <title>kronos</title>
+
+    <title><%= webpackConfig.metadata.title %></title>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="kronos">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="styles/styles.css" rel="stylesheet" />
+    <meta name="description" content="<%= webpackConfig.metadata.title %>">
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="theme-color" content="#00bcd4">
+
+    <link rel="manifest" href="/assets/manifest.json">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- base url -->
+    <base href="<%= webpackConfig.metadata.baseUrl %>">
+
 </head>
+
 <body>
-    <header class="navbar navbar-inner navbar-fixed-top">
-        <nav class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <img src="images/people.png" alt="logo">
-              <span class="app-title">Customer Manager</span>
-            </div>
-        </nav>
-    </header>
 
-    <main class="container">
-        <app-container>
-            Loading...
-        </app-container>
-        <br /><br />
-    </main>
+<app-container>
+    Loading...
+</app-container>
 
-    <footer>
-        <div class="navbar navbar-fixed-bottom">
-            <div class="navbar-inner footer">
-                <div class="container">
-                    <footer>
-                        <div class="row">
-                            <div class="col-md-12">
-                                Created by <a href="https://www.linkedin.com/in/vadim-gorbachev-06a31485" target="_blank">Vadim Gorbachev</a>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
-            </div>
-        </div>
-    </footer>
+<% if (webpackConfig.metadata.ENV === 'development') { %>
+<!-- Webpack Dev Server reload -->
+<!--<script src="http://<%= webpackConfig.metadata.host %>:<%= webpackConfig.metadata.port %>/webpack-dev-server.js"></script>-->
+<% } %>
 
-   <!-- IE required polyfills (order matters) -->
-   <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
-   <script src="/node_modules/systemjs/dist/system-polyfills.js"></script>
 
-   <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
-   <script src="/node_modules/systemjs/dist/system.src.js"></script>
-   <script src="/node_modules/rxjs/bundles/Rx.js"></script>
-   <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
-   <script src="/node_modules/angular2/bundles/router.dev.js"></script>
-
-    <script>
-
-        System.config({
-            baseURL: '/node_modules',
-            defaultJSExtensions: true,
-            warnings: true,
-            packages: {
-                'app': {format: 'register', defaultExtension: 'js'},
-                "/angular2-jwt": {"defaultExtension": "js"}
-            },
-            map: {
-                "angular2-jwt": "/node_modules/angular2-jwt/angular2-jwt"
-            }
-        });
-
-        System.import('./app/main')
-            .then(null, console.error.bind(console));
-
-    </script>
 </body>
 </html>
